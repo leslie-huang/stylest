@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-[![Travis-CI Build Status](https://travis-ci.com/leslie-huang/stylest.svg?branch=master)](https://travis-ci.com/leslie-huang/stylest) [![Build status](https://ci.appveyor.com/api/projects/status/i30g5h46s0kr8uir?svg=true)](https://ci.appveyor.com/project/leslie-huang/stylest)
+[![Travis-CI Build Status](https://travis-ci.org/leslie-huang/stylest.svg?branch=master)](https://travis-ci.org/leslie-huang/stylest) [![Build status](https://ci.appveyor.com/api/projects/status/384insyingv6jcg2?svg=true)](https://ci.appveyor.com/project/leslie-huang/stylest)
 
 # stylest
 
@@ -28,4 +28,12 @@ devtools::install_github("leslie-huang/stylest")
 ```
 
 See the vignette for examples and usage.
+
+## Authors
+
+<a href="https://github.com/patperry">Patrick O. Perry</a>
+
+Leslie Huang (maintainer)
+
+<a href="https://github.com/ArthurSpirling/">Arthur Spirling</a>
 
