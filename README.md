@@ -19,13 +19,13 @@ You can install detextive from github with:
 devtools::install_github("leslie-huang/stylest")
 ```
 
-See the vignette for examples and usage.
+See the <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.md">vignette</a> for examples and usage.
 
 Authors
 -------
 
 <a href="https://github.com/patperry">Patrick O. Perry</a>
 
-Leslie Huang (maintainer)
+<a href="http://leslie-huang.github.io">Leslie Huang (maintainer)</a>
 
 <a href="https://github.com/ArthurSpirling/">Arthur Spirling</a>
