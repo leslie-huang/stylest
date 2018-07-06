@@ -42,7 +42,7 @@ library(corpus)
 
 ## Corpus
 
-We will be using texts of the first lines of novels by Jane Austen, George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the full texts of novels available on Project Gutenberg: \url{http://gutenberg.org}.
+We will be using texts of the first lines of novels by Jane Austen, George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the full texts of novels available on Project Gutenberg: http://gutenberg.org.
 
 ```{r echo=TRUE}
 data(novels_excerpts)
@@ -196,3 +196,7 @@ And the least influential terms:
 ```{r echo = TRUE}
 tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
 ```
+
+## Issues
+
+Please submit any bugs, error reports, etc. on GitHub at: https://github.com/leslie-huang/stylest/issues.

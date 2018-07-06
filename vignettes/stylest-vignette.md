@@ -28,7 +28,8 @@ Corpus
 
 We will be using texts of the first lines of novels by Jane Austen,
 George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the
-full texts of novels available on Project Gutenberg: .
+full texts of novels available on Project Gutenberg:
+<http://gutenberg.org>.
 
     data(novels_excerpts)
 
@@ -208,3 +209,9 @@ And the least influential terms:
     #> 259   whose 0.02133423 0.06211633
     #> 260   woman 0.02133423 0.06211633
     #> 33     from 0.01113619 0.01683299
+
+Issues
+------
+
+Please submit any bugs, error reports, etc. on GitHub at:
+<https://github.com/leslie-huang/stylest/issues>.

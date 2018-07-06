@@ -94,7 +94,7 @@ devtools<span class="op">::</span><span class="kw">install_github</span>(<span c
 <h1>Example: Fitting a model to English novels</h1>
 <div id="corpus" class="section level2">
 <h2>Corpus</h2>
-<p>We will be using texts of the first lines of novels by Jane Austen, George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the full texts of novels available on Project Gutenberg: .</p>
+<p>We will be using texts of the first lines of novels by Jane Austen, George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the full texts of novels available on Project Gutenberg: <a href="http://gutenberg.org" class="uri">http://gutenberg.org</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(novels_excerpts)</code></pre></div>
 <p>The corpus should have at least one variable by which the texts can be grouped — the most common examples are a “speaker” or “author” attribute. Here, we will use <code>novels_excerpts$author</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">unique</span>(novels_excerpts<span class="op">$</span>author)
@@ -225,6 +225,10 @@ influential_terms &lt;-<span class="st"> </span><span class="kw">stylest_term_in
 <span class="co">#&gt; 260   woman 0.02133423 0.06211633</span>
 <span class="co">#&gt; 33     from 0.01113619 0.01683299</span></code></pre></div>
 </div>
+</div>
+<div id="issues" class="section level2">
+<h2>Issues</h2>
+<p>Please submit any bugs, error reports, etc. on GitHub at: <a href="https://github.com/leslie-huang/stylest/issues" class="uri">https://github.com/leslie-huang/stylest/issues</a>.</p>
 </div>
 </div>
 
