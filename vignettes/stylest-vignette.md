@@ -28,8 +28,7 @@ Corpus
 
 We will be using texts of the first lines of novels by Jane Austen,
 George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the
-full texts of novels available on Project Gutenberg: . The data is part
-of the `corpus` package.
+full texts of novels available on Project Gutenberg: .
 
     data(novels_excerpts)
 
@@ -79,7 +78,9 @@ argument; see the `corpus` package for more information about
 
     filter <- corpus::text_filter(drop_punct = TRUE, drop_number = TRUE)
 
-    vocab_custom <- stylest_select_vocab(novels_excerpts$text, novels_excerpts$author, filter = filter, smooth = 1, nfold = 10, cutoff_pcts = c(50, 75, 99))
+    vocab_custom <- stylest_select_vocab(novels_excerpts$text, novels_excerpts$author, 
+                                         filter = filter, smooth = 1, nfold = 10, 
+                                         cutoff_pcts = c(50, 75, 99))
 
 Let's look inside the `vocab_with_defaults` object.
 
@@ -126,7 +127,7 @@ term frequencies as the default `0.5`.
 
     mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, terms = terms_80, filter = filter)
 
-The model contains detaild information about token usage by each of the
+The model contains detailed information about token usage by each of the
 authors; exploring this is left as an exercise.
 
 Using the model
@@ -156,7 +157,13 @@ In this example, the model is used to predict the speaker of a new text,
 in this case *Northanger Abbey* by Jane Austen.
 
 
-    na_text <- "No one who had ever seen Catherine Morland in her infancy would have supposed her born to be an heroine. Her situation in life, the character of her father and mother, her own person and disposition, were all equally against her. Her father was a clergyman, without being neglected, or poor, and a very respectable man, though his name was Richard—and he had never been handsome. He had a considerable independence besides two good livings—and he was not in the least addicted to locking up his daughters."
+    na_text <- "No one who had ever seen Catherine Morland in her infancy would have supposed 
+                her born to be an heroine. Her situation in life, the character of her father 
+                and mother, her own person and disposition, were all equally against her. Her 
+                father was a clergyman, without being neglected, or poor, and a very respectable 
+                man, though his name was Richard—and he had never been handsome. He had a 
+                considerable independence besides two good livings—and he was not in the least 
+                addicted to locking up his daughters."
 
     pred <- stylest_predict(mod, na_text)
 
