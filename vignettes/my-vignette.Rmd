@@ -1,0 +1,190 @@
+---
+title: "stylest vignette"
+author: "Leslie Huang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{stylest vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## About
+
+This vignette describes the usage of `stylest` for estimating speaker (author) style distinctiveness.
+
+### Installation
+
+Install `stylest` from GitHub by executing:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("devtools")
+devtools::install_github("leslie-huang/stylest")
+```
+
+### Load the package
+
+`stylest` is built on top of `corpus`. `corpus` is required to specify (optional) parameters in `stylest`, so we recommend installing `corpus` as well. 
+
+```{r echo=TRUE}
+library(stylest)
+library(corpus)
+```
+
+# Example: Fitting a model to English novels
+
+## Corpus
+
+We will be using texts of the first lines of novels by Jane Austen, George Eliot, and Elizabeth Gaskell. Excerpts were obtained from the full texts of novels available on Project Gutenberg: \url{http://gutenberg.org}. The data is part of the `corpus` package.
+
+```{r echo=TRUE}
+data(novels_excerpts)
+```
+
+The corpus should have at least one variable by which the texts can be grouped --- the most common examples are a "speaker" or "author" attribute. Here, we will use `novels_excerpts$author`.
+
+```{r echo=TRUE}
+unique(novels_excerpts$author)
+```
+
+## Using `stylest_select_vocab`
+
+This function uses n-fold cross-validation to identify the set of terms that maximizes the model's rate of predicting the speakers of out-of-sample texts. For those unfamiliar with cross-validation, the technical details follow:
+
+- The terms of the raw vocabulary are ordered by frequency.
+- A subset of the raw vocabulary above a frequency percentile is selected; e.g. terms above the 50th percentile are those which occur more frequently than the median term in the raw vocabulary.
+- The corpus is divided into n folds. 
+- One of these folds is held out and the model is fit using the remaining n-1 folds. The model is then used to predict the speakers of texts in the held-out fold. (This step is repeated n times.)
+- The mean prediction rate for models using this vocabulary (percentile) is calculated.
+
+(Vocabulary selection is optional; the model can be fit using all the terms in the support of the corpus.)
+
+Setting the seed before this step, to ensure reproducible runs, is recommended:
+
+```{r echo = TRUE}
+set.seed(1234)
+```
+
+Below are examples of `stylest_select_vocab` using the defaults and with custom parameters:
+
+```{r echo=TRUE}
+vocab_with_defaults <- stylest_select_vocab(novels_excerpts$text, novels_excerpts$author)
+```
+
+Tokenization selections can optionally be passed as the `filter` argument; see the `corpus` package for more information about `text_filter`.
+
+```{r echo=TRUE}
+filter <- corpus::text_filter(drop_punct = TRUE, drop_number = TRUE)
+
+vocab_custom <- stylest_select_vocab(novels_excerpts$text, novels_excerpts$author, filter = filter, smooth = 1, nfold = 10, cutoff_pcts = c(50, 75, 99))
+```
+
+Let's look inside the `vocab_with_defaults` object.
+
+```{r echo=TRUE}
+# Percentile with best prediction rate
+vocab_with_defaults$cutoff_pct_best
+
+# Rate of INCORRECTLY predicted speakers of held-out texts
+vocab_with_defaults$miss_pct
+
+# Data on the setup:
+
+# Percentiles tested
+vocab_with_defaults$cutoff_pcts
+
+# Number of folds
+vocab_with_defaults$nfold
+
+```
+
+## Fitting a model
+
+### Using a percentile to select terms
+
+With the best percentile identified as 80 percent, we can select the terms above that percentile to use in the model. Be sure to use the same `text_filter` here as in the previous step.
+
+```{r echo=TRUE}
+terms_80 <- stylest_terms(novels_excerpts$text, novels_excerpts$author, 80, filter = filter)
+```
+
+### Fitting the model
+
+Below, we fit the model using the terms above the 80th percentile, using the same `text_filter` as before, and leaving the smoothing value for term frequencies as the default `0.5`.
+
+```{r echo=TRUE}
+
+mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, terms = terms_80, filter = filter)
+
+```
+
+The model contains detaild information about token usage by each of the authors; exploring this is left as an exercise.
+
+## Using the model
+
+### Calculating speaker log odds
+
+```{r echo = TRUE}
+
+odds <- stylest_odds(mod, novels_excerpts$text, novels_excerpts$author)
+```
+
+We can examine the mean log odds that Jane Austen wrote Pride and Prejudice.
+
+```{r echo = TRUE}
+# Pride and Prejudice
+novels_excerpts$text[14]
+
+odds$log_odds_avg[14]
+
+odds$log_odds_se[14]
+
+```
+
+### Predicting the speaker of a new text
+
+In this example, the model is used to predict the speaker of a new text, in this case _Northanger Abbey_ by Jane Austen.
+
+```{r echo = TRUE}
+
+na_text <- "No one who had ever seen Catherine Morland in her infancy would have supposed her born to be an heroine. Her situation in life, the character of her father and mother, her own person and disposition, were all equally against her. Her father was a clergyman, without being neglected, or poor, and a very respectable man, though his name was Richard—and he had never been handsome. He had a considerable independence besides two good livings—and he was not in the least addicted to locking up his daughters."
+
+pred <- stylest_predict(mod, na_text)
+```
+
+Viewing the result, and recovering the log probabilities calculated for each speaker, is simple:
+
+```{r echo = TRUE}
+pred$predicted
+
+pred$log_probs
+```
+
+### Influential terms
+
+`stylest_term_influence` identifies terms contribute to speakers' distinctiveness in a fitted model.
+
+```{r echo = TRUE}
+
+influential_terms <- stylest_term_influence(mod, novels_excerpts$text, novels_excerpts$author)
+
+```
+
+The terms with the highest mean influence can be obtained:
+
+```{r echo = TRUE}
+head(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
+```
+
+And the least influential terms:
+
+```{r echo = TRUE}
+tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
+```

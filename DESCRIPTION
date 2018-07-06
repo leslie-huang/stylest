@@ -1,0 +1,28 @@
+Package: stylest
+Version: 0.0.0.9000
+Title: Estimating speaker style distinctiveness
+Authors@R: c(
+  person("Leslie", "Huang",
+         role = c("aut", "cph", "cre"),
+         email = "lesliehuang@nyu.edu"),
+  person(c("Patrick", "O."), "Perry",
+         role = c("aut", "cph")),
+  person("Arthur", "Spirling",
+         role = c("aut", "cph")))
+Depends: R (>= 2.10)
+Imports:
+  corpus,
+  Matrix,
+  stats
+Suggests:
+  knitr,
+  rmarkdown,
+  testthat
+Description: Estimates distinctiveness in speakers' (authors') style. Fits models that can be used for predicting speakers of new texts.
+License: GPL-3 + file LICENSE
+URL: https://github.com/leslie-huang/stylest
+BugReports: https://github.com/leslie-huang/stylest/issues
+LazyData: true
+Encoding: UTF-8
+VignetteBuilder: knitr, rmarkdown
+RoxygenNote: 6.0.1.9000

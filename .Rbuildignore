@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+
+## Ignore travis config file
+^\.travis\.yml$
+^README\.Rmd$
+^README-.*\.png$
+README.html
+^appveyor\.yml$
+cran-comments.md
