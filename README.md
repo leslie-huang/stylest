@@ -12,7 +12,7 @@ Please submit any bugs, error reports, etc. on <a href="https://github.com/lesli
 Installation
 ------------
 
-You can install detextive from github with:
+You can install `stylest` from github with:
 
 ``` r
 # install.packages("devtools")
