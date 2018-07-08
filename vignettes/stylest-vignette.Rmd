@@ -2,7 +2,8 @@
 title: "stylest vignette"
 author: "Leslie Huang"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::md_document
+always_allow_html: yes
 vignette: >
   %\VignetteIndexEntry{stylest vignette}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,7 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-## About
+```{r include=FALSE}
+library(kableExtra)
+```
+
+# About `stylest`
 
 This vignette describes the usage of `stylest` for estimating speaker (author) style distinctiveness.
 
@@ -46,6 +51,12 @@ We will be using texts of the first lines of novels by Jane Austen, George Eliot
 
 ```{r echo=TRUE}
 data(novels_excerpts)
+```
+
+```{r echo=FALSE}
+# show a snippet of the data
+kable(novels_excerpts[c(1,4,8), ]) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 The corpus should have at least one variable by which the texts can be grouped --- the most common examples are a "speaker" or "author" attribute. Here, we will use `novels_excerpts$author`.
@@ -138,7 +149,7 @@ The model contains detailed information about token usage by each of the authors
 odds <- stylest_odds(mod, novels_excerpts$text, novels_excerpts$author)
 ```
 
-We can examine the mean log odds that Jane Austen wrote Pride and Prejudice.
+We can examine the mean log odds that Jane Austen wrote _Pride and Prejudice_ (in-sample).
 
 ```{r echo = TRUE}
 # Pride and Prejudice
@@ -152,7 +163,9 @@ odds$log_odds_se[14]
 
 ### Predicting the speaker of a new text
 
-In this example, the model is used to predict the speaker of a new text, in this case _Northanger Abbey_ by Jane Austen.
+In this example, the model is used to predict the speaker of a new text, in this case _Northanger Abbey_ by Jane Austen. 
+
+Note that a `prior` may be specified, and may be useful for handling texts containing out-of-sample terms. Here, we do not specify a prior, so a uniform prior is used.
 
 ```{r echo = TRUE}
 
@@ -177,7 +190,7 @@ pred$log_probs
 
 ### Influential terms
 
-`stylest_term_influence` identifies terms contribute to speakers' distinctiveness in a fitted model.
+`stylest_term_influence` identifies terms' contributions to speakers' distinctiveness in a fitted model.
 
 ```{r echo = TRUE}
 
@@ -185,16 +198,20 @@ influential_terms <- stylest_term_influence(mod, novels_excerpts$text, novels_ex
 
 ```
 
+The mean and maximum influence can be accessed with `$infl_avg` and `$infl_max`, respectively. 
+
 The terms with the highest mean influence can be obtained:
 
-```{r echo = TRUE}
-head(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
+```{r echo = FALSE}
+kable(head(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 And the least influential terms:
 
-```{r echo = TRUE}
-tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
+```{r echo = FALSE}
+kable(tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])) %>%
+  kable_styling(bootstrap_options = c("striped", "hover"))
 ```
 
 ## Issues

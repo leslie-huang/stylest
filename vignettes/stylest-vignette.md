@@ -1,5 +1,5 @@
-About
------
+About `stylest`
+===============
 
 This vignette describes the usage of `stylest` for estimating speaker
 (author) style distinctiveness.
@@ -33,6 +33,102 @@ full texts of novels available on Project Gutenberg:
 
     data(novels_excerpts)
 
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+title
+</th>
+<th style="text-align:left;">
+author
+</th>
+<th style="text-align:left;">
+text
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+A Dark Night's Work
+</td>
+<td style="text-align:left;">
+Gaskell, Elizabeth Cleghorn
+</td>
+<td style="text-align:left;">
+In the county town of a certain shire there lived (about forty years
+ago) one Mr. Wilkins, a conveyancing attorney of considerable standing.
+The certain shire was but a small county, and the principal town in it
+contained only about four thousand inhabitants; so in saying that Mr.
+Wilkins was the principal lawyer in Hamley, I say very little, unless I
+add that he transacted all the legal business of the gentry for twenty
+miles round. His grandfather had established the connection; his father
+had consolidated and strengthened it, and, indeed, by his wise and
+upright conduct, as well as by his professional skill, had obtained for
+himself the position of confidential friend to many of the surrounding
+families of distinction.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+Brother Jacob
+</td>
+<td style="text-align:left;">
+Eliot, George
+</td>
+<td style="text-align:left;">
+Among the many fatalities attending the bloom of young desire, that of
+blindly taking to the confectionery line has not, perhaps, been
+sufficiently considered. How is the son of a British yeoman, who has
+been fed principally on salt pork and yeast dumplings, to know that
+there is satiety for the human stomach even in a paradise of glass jars
+full of sugared almonds and pink lozenges, and that the tedium of life
+can reach a pitch where plum-buns at discretion cease to offer the
+slightest excitement? Or how, at the tender age when a confectioner
+seems to him a very prince whom all the world must envy--who breakfasts
+on macaroons, dines on meringues, sups on twelfth-cake, and fills up the
+intermediate hours with sugar-candy or peppermint--how is he to foresee
+the day of sad wisdom, when he will discern that the confectioner's
+calling is not socially influential, or favourable to a soaring
+ambition?
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+Emma
+</td>
+<td style="text-align:left;">
+Austen, Jane
+</td>
+<td style="text-align:left;">
+Emma Woodhouse, handsome, clever, and rich, with a comfortable home and
+happy disposition, seemed to unite some of the best blessings of
+existence; and had lived nearly twenty-one years in the world with very
+little to distress or vex her. She was the youngest of the two daughters
+of a most affectionate, indulgent father; and had, in consequence of her
+sister's marriage, been mistress of his house from a very early period.
+Her mother had died too long ago for her to have more than an indistinct
+remembrance of her caresses; and her place had been supplied by an
+excellent woman as governess, who had fallen little short of a mother in
+affection. Sixteen years had Miss Taylor been in Mr. Woodhouse's family,
+less as a governess than a friend, very fond of both daughters, but
+particularly of Emma. Between *them* it was more the intimacy of
+sisters.
+</td>
+</tr>
+</tbody>
+</table>
 The corpus should have at least one variable by which the texts can be
 grouped --- the most common examples are a "speaker" or "author"
 attribute. Here, we will use `novels_excerpts$author`.
@@ -139,8 +235,8 @@ Using the model
 
     odds <- stylest_odds(mod, novels_excerpts$text, novels_excerpts$author)
 
-We can examine the mean log odds that Jane Austen wrote Pride and
-Prejudice.
+We can examine the mean log odds that Jane Austen wrote *Pride and
+Prejudice* (in-sample).
 
     # Pride and Prejudice
     novels_excerpts$text[14]
@@ -156,6 +252,10 @@ Prejudice.
 
 In this example, the model is used to predict the speaker of a new text,
 in this case *Northanger Abbey* by Jane Austen.
+
+Note that a `prior` may be specified, and may be useful for handling
+texts containing out-of-sample terms. Here, we do not specify a prior,
+so a uniform prior is used.
 
 
     na_text <- "No one who had ever seen Catherine Morland in her infancy would have supposed 
@@ -182,34 +282,225 @@ each speaker, is simple:
 
 ### Influential terms
 
-`stylest_term_influence` identifies terms contribute to speakers'
+`stylest_term_influence` identifies terms' contributions to speakers'
 distinctiveness in a fitted model.
 
 
     influential_terms <- stylest_term_influence(mod, novels_excerpts$text, novels_excerpts$author)
 
+The mean and maximum influence can be accessed with `$infl_avg` and
+`$infl_max`, respectively.
+
 The terms with the highest mean influence can be obtained:
 
-    head(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
-    #>    term  infl_avg infl_max
-    #> 1   the 3.1276856 5.943936
-    #> 2    of 1.2237994 1.624485
-    #> 10    i 1.1128586 2.445026
-    #> 16  was 0.9560661 2.513274
-    #> 36  her 0.8214846 2.276707
-    #> 15   on 0.8014783 1.868317
-
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+infl\_avg
+</th>
+<th style="text-align:right;">
+infl\_max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+the
+</td>
+<td style="text-align:right;">
+3.1276856
+</td>
+<td style="text-align:right;">
+5.943936
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+of
+</td>
+<td style="text-align:right;">
+1.2237994
+</td>
+<td style="text-align:right;">
+1.624485
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+i
+</td>
+<td style="text-align:right;">
+1.1128586
+</td>
+<td style="text-align:right;">
+2.445026
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+16
+</td>
+<td style="text-align:left;">
+was
+</td>
+<td style="text-align:right;">
+0.9560661
+</td>
+<td style="text-align:right;">
+2.513274
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+36
+</td>
+<td style="text-align:left;">
+her
+</td>
+<td style="text-align:right;">
+0.8214846
+</td>
+<td style="text-align:right;">
+2.276707
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+15
+</td>
+<td style="text-align:left;">
+on
+</td>
+<td style="text-align:right;">
+0.8014783
+</td>
+<td style="text-align:right;">
+1.868317
+</td>
+</tr>
+</tbody>
+</table>
 And the least influential terms:
 
-    tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE), ])
-    #>        term   infl_avg   infl_max
-    #> 249   taken 0.02133423 0.06211633
-    #> 252 thought 0.02133423 0.06211633
-    #> 254  turned 0.02133423 0.06211633
-    #> 259   whose 0.02133423 0.06211633
-    #> 260   woman 0.02133423 0.06211633
-    #> 33     from 0.01113619 0.01683299
-
+<table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+infl\_avg
+</th>
+<th style="text-align:right;">
+infl\_max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+249
+</td>
+<td style="text-align:left;">
+taken
+</td>
+<td style="text-align:right;">
+0.0213342
+</td>
+<td style="text-align:right;">
+0.0621163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+252
+</td>
+<td style="text-align:left;">
+thought
+</td>
+<td style="text-align:right;">
+0.0213342
+</td>
+<td style="text-align:right;">
+0.0621163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+254
+</td>
+<td style="text-align:left;">
+turned
+</td>
+<td style="text-align:right;">
+0.0213342
+</td>
+<td style="text-align:right;">
+0.0621163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+259
+</td>
+<td style="text-align:left;">
+whose
+</td>
+<td style="text-align:right;">
+0.0213342
+</td>
+<td style="text-align:right;">
+0.0621163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+260
+</td>
+<td style="text-align:left;">
+woman
+</td>
+<td style="text-align:right;">
+0.0213342
+</td>
+<td style="text-align:right;">
+0.0621163
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+33
+</td>
+<td style="text-align:left;">
+from
+</td>
+<td style="text-align:right;">
+0.0111362
+</td>
+<td style="text-align:right;">
+0.0168330
+</td>
+</tr>
+</tbody>
+</table>
 Issues
 ------
 
