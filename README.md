@@ -7,8 +7,6 @@ stylest (alpha version)
 
 `stylest` estimates speaker style distinctiveness.
 
-Please submit any bugs, error reports, etc. on <a href="https://github.com/leslie-huang/stylest/issues">GitHub</a>.
-
 Installation
 ------------
 
@@ -24,8 +22,13 @@ See the <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/s
 Authors
 -------
 
-<a href="https://github.com/patperry">Patrick O. Perry</a>
-
 <a href="http://leslie-huang.github.io">Leslie Huang (maintainer)</a>
 
+<a href="https://github.com/patperry">Patrick O. Perry</a>
+
 <a href="https://github.com/ArthurSpirling/">Arthur Spirling</a>
+
+Bug reports
+-----------
+
+Please submit any bugs, error reports, etc. on <a href="https://github.com/leslie-huang/stylest/issues">GitHub</a>.
