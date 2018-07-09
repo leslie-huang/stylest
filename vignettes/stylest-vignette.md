@@ -302,10 +302,10 @@ The terms with the highest mean influence can be obtained:
 term
 </th>
 <th style="text-align:right;">
-infl\_avg
+infl_avg
 </th>
 <th style="text-align:right;">
-infl\_max
+infl_max
 </th>
 </tr>
 </thead>
@@ -407,10 +407,10 @@ And the least influential terms:
 term
 </th>
 <th style="text-align:right;">
-infl\_avg
+infl_avg
 </th>
 <th style="text-align:right;">
-infl\_max
+infl_max
 </th>
 </tr>
 </thead>
@@ -501,6 +501,7 @@ from
 </tr>
 </tbody>
 </table>
+
 Issues
 ------
 
