@@ -130,5 +130,4 @@ stylest_terms <- function(x, speaker, vocab_cutoff, filter = NULL) {
     
     terms
   }
-  
 }

@@ -90,3 +90,24 @@ fit_term_usage <- function(x, speaker, terms, smooth)
     
     list(terms = terms, ntoken = ntok, smooth = smooth, rate = rate)
 }
+
+#'
+#' Custom print method for stylest_model
+#' 
+#' @export
+#' 
+#' @param x `stylest_model` object
+#' @param ... Additional arguments
+#' @return Prints summary information about the `stylest_model` object
+#' 
+#' @examples 
+#' 
+#' data(novels_excerpts)
+#' speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
+#' print(speaker_mod)
+#'  
+print.stylest_model <- function(x, ...) {
+  cat("A S3 stylest_model object containing: ")
+  cat(length(x$speakers), "unique authors and", length(x$terms), "unique terms.")
+  
+}
