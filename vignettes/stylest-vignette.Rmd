@@ -2,7 +2,7 @@
 title: "stylest vignette"
 author: "Leslie Huang"
 date: "`r Sys.Date()`"
-output: rmarkdown::md_document
+output: rmarkdown::html_vignette
 always_allow_html: yes
 vignette: >
   %\VignetteIndexEntry{stylest vignette}
