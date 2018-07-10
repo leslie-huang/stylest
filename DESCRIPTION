@@ -1,6 +1,6 @@
 Package: stylest
-Version: 0.0.0.9000
-Title: Estimating speaker style distinctiveness
+Version: 0.1.0
+Title: Estimating Speaker Style Distinctiveness
 Authors@R: c(
   person("Leslie", "Huang",
          role = c("aut", "cph", "cre"),
