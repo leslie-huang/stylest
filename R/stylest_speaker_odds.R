@@ -68,7 +68,7 @@ stylest_odds <- function(model, text, speaker, prior = NULL)
 
     # average globally
     nspk <- ncol(log_odds)
-    log_odds_avg <- rowSums(log_odds) / nspk
+    log_odds_avg <- Matrix::rowSums(log_odds) / nspk
     log_odds_se  <- apply(log_odds, 1, stats::sd) / sqrt(nspk)
 
     # put NA for speeches of length 0
