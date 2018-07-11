@@ -1,12 +1,8 @@
 #' Pairwise prediction of the most likely speaker of texts
 #'
-#' For pairs of the speaker of a text and every other speaker in the
-#' \code{stylest_model}, computes log odds of the most likely speaker of each
-#' text.
-#'
-#' A speaker with distinctive style should have high log odds, compared with
-#' other speakers of the corpus, for speaking the texts that s/he did in fact
-#' contribute to the corpus.
+#' Computes the mean log odds of the most likely speaker of each
+#' text over pairs of the speaker of a text and every other speaker in the
+#' \code{stylest_model}.
 #'
 #' @export
 #'
@@ -14,7 +10,7 @@
 #' @param text Text vector. May be a \code{corpus_frame} object
 #' @param speaker Vector of speaker labels. Should be the same length as
 #'   \code{x}
-#' @param prior prior probability of speakers. Uses equal prior if \code{NULL}
+#' @param prior Prior probability of speakers. Uses equal prior if \code{NULL}
 #' @return A S3 \code{stylest_odds} object containing: a
 #'   \code{stylest_model} object; vector of mean log odds that each actual
 #'   speaker (compared with other speakers in the corpus) spoke their
@@ -63,7 +59,7 @@ stylest_odds <- function(model, text, speaker, prior = NULL)
     # lengths comparable
     log_weights <- log_weights / ifelse(ntok == 0, 1, ntok)
 
-    # compute ratio of baseline to other
+    # compute ratio of baseline to other (zeros are actual spkr)
     log_odds <- log_weights[cbind(seq_along(baseline), baseline)] - log_weights
 
     # average globally

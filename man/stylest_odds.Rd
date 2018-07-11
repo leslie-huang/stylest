@@ -14,7 +14,7 @@ stylest_odds(model, text, speaker, prior = NULL)
 \item{speaker}{Vector of speaker labels. Should be the same length as
 \code{x}}
 
-\item{prior}{prior probability of speakers. Uses equal prior if \code{NULL}}
+\item{prior}{Prior probability of speakers. Uses equal prior if \code{NULL}}
 }
 \value{
 A S3 \code{stylest_odds} object containing: a
@@ -23,14 +23,9 @@ A S3 \code{stylest_odds} object containing: a
   corresponding texts in the corpus; vector of SEs of the log odds
 }
 \description{
-For pairs of the speaker of a text and every other speaker in the
-\code{stylest_model}, computes log odds of the most likely speaker of each
-text.
-}
-\details{
-A speaker with distinctive style should have high log odds, compared with
-other speakers of the corpus, for speaking the texts that s/he did in fact
-contribute to the corpus.
+Computes the mean log odds of the most likely speaker of each
+text over pairs of the speaker of a text and every other speaker in the
+\code{stylest_model}.
 }
 \examples{
 data(novels_excerpts)
