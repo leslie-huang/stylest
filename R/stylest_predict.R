@@ -55,7 +55,7 @@ stylest_predict <- function(model, text, prior = NULL)
     # guard against overflow
     log_weights <- log_weights - apply(log_weights, 1, max)
 
-    const <- log(rowSums(exp(log_weights)))
+    const <- log(Matrix::rowSums(exp(log_weights)))
     log_probs <- log_weights - const
     rownames(log_probs) <- rownames(x)
 
