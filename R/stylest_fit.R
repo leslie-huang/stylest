@@ -80,7 +80,7 @@ fit_term_usage <- function(x, speaker, terms, smooth)
     selected_dtm <- corpus::term_matrix(x, select = terms, group = speaker)
 
     # get the number of tokens uttered by each speaker
-    ntok <- rowSums(selected_dtm)
+    ntok <- Matrix::rowSums(selected_dtm)
 
     # get the number of unique types in the corpus
     ntype <- ncol(selected_dtm)
