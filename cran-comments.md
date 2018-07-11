@@ -2,8 +2,8 @@
 
 ## Test environments
 * local OS X install, R 3.4.3
-* OS 10.12.6 (on travis-ci), R 3.5.0
-* ubuntu 14.04 (on travis-ci), R 3.5.0
+* OS 10.12.6 (on travis-ci), R 3.5.0, R-oldrel, R-devel
+* ubuntu 14.04 (on travis-ci), R 3.5.0, R-oldrel, R-devel
 * windows server 2012 (on appveyor), R 3.5.0
 
 ## R CMD check results
