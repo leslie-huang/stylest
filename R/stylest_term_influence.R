@@ -23,7 +23,7 @@ stylest_term_influence <- function(model, text, speaker)
     text <- corpus::as_corpus_text(text, model$filter)
 
     x <- corpus::term_matrix(text, select = model$terms)
-    ntok <- rowSums(x)
+    ntok <- Matrix::rowSums(x)
 
     fbar <- matrix(NA, length(model$speakers), length(model$terms))
     rownames(fbar) <- model$speakers
@@ -32,10 +32,10 @@ stylest_term_influence <- function(model, text, speaker)
     for (i in seq_len(nrow(fbar))) {
         t <- model$speakers[[i]]
         x_t <- x[speaker == t, , drop = FALSE]
-        fbar[i, ] <- colMeans(x_t)
+        fbar[i, ] <- Matrix::colMeans(x_t) #spkr's mean term frequency rate (averaged over their docs)
     }
 
-    etabar <- colMeans(eta)
+    etabar <- Matrix::colMeans(eta)
     eta_centered <- eta - matrix(1, nrow(eta), 1) %*% etabar
 
     d <- fbar * eta_centered
