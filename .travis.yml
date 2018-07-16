@@ -11,3 +11,6 @@ os:
   - osx
   
 sudo: false
+
+install:
+  - Rscript -e 'install.packages("devtools", repos = "http://cran.rstudio.com")'
