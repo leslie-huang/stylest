@@ -17,7 +17,7 @@ None.
 
 ## Ignored build failures
 
-The OSX/R-devel build fails on travis-ci with the following error; while I have been unable to resolve this error using suggestions from similar issues on GitHub, I believe it is unrelated to my package.
+I am ignoring a build failure on OSX/R-devel. I believe that the error does not originate in my package yet I have been unable to resolve after following suggestions from similar issues on GitHub. The error is as follows:
 
  <!--
 The command "Rscript -e 'deps <- devtools::dev_package_deps(dependencies = NA);devtools::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) { message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", ")); q(status = 1, save = "no")}'" failed and exited with 1 during .
