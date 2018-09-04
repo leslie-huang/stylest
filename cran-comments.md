@@ -1,3 +1,11 @@
+## Resubmission
+
+This is a resubmission. In this version I have:
+
+* Added a reference and DOI for the working paper in which the methods of this package were developed.
+* Removed GPL-3 License file.
+
+
 ## Release summary
 
 ## Test environments
