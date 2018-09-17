@@ -3,6 +3,7 @@ title: "stylest vignette"
 author: "Leslie Huang"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+# output: rmarkdown::md_document
 always_allow_html: yes
 vignette: >
   %\VignetteIndexEntry{stylest vignette}
@@ -27,11 +28,18 @@ This vignette describes the usage of `stylest` for estimating speaker (author) s
 
 ### Installation
 
-Install `stylest` from GitHub by executing:
+Install `stylest` from CRAN by executing:
+
+
+```{r eval = FALSE}
+install.packages("stylest")
+```
+
+The dev version of `stylest` on GitHub may have additional features (and bugs) and is not guaranteed to be stable. Power users may install it with:
 
 ```{r gh-installation, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("leslie-huang/stylest")
+# devtools::install_github("leslie-huang/stylest")
 ```
 
 ### Load the package

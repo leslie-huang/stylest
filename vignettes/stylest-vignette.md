@@ -6,10 +6,16 @@ This vignette describes the usage of `stylest` for estimating speaker
 
 ### Installation
 
-Install `stylest` from GitHub by executing:
+Install `stylest` from CRAN by executing:
+
+    install.packages("stylest")
+
+The dev version of `stylest` on GitHub may have additional features (and
+bugs) and is not guaranteed to be stable. Power users may install it
+with:
 
     # install.packages("devtools")
-    devtools::install_github("leslie-huang/stylest")
+    # devtools::install_github("leslie-huang/stylest")
 
 ### Load the package
 
@@ -302,10 +308,10 @@ The terms with the highest mean influence can be obtained:
 term
 </th>
 <th style="text-align:right;">
-infl_avg
+infl\_avg
 </th>
 <th style="text-align:right;">
-infl_max
+infl\_max
 </th>
 </tr>
 </thead>
@@ -407,10 +413,10 @@ And the least influential terms:
 term
 </th>
 <th style="text-align:right;">
-infl_avg
+infl\_avg
 </th>
 <th style="text-align:right;">
-infl_max
+infl\_max
 </th>
 </tr>
 </thead>
@@ -501,7 +507,6 @@ from
 </tr>
 </tbody>
 </table>
-
 Issues
 ------
 
