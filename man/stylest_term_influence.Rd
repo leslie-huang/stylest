@@ -25,5 +25,4 @@ Compute the influence of terms
 data(novels_excerpts)
 speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 stylest_term_influence(speaker_mod, novels_excerpts$text, novels_excerpts$author)
-  
 }
