@@ -26,4 +26,4 @@ BugReports: https://github.com/leslie-huang/stylest/issues
 LazyData: true
 Encoding: UTF-8
 VignetteBuilder: knitr, rmarkdown
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 7.0.2

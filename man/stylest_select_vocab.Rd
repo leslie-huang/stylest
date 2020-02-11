@@ -4,8 +4,14 @@
 \alias{stylest_select_vocab}
 \title{Select vocabulary using cross-validated out-of-sample prediction}
 \usage{
-stylest_select_vocab(x, speaker, filter = NULL, smooth = 0.5,
-  nfold = 5, cutoff_pcts = c(50, 60, 70, 80, 90, 99))
+stylest_select_vocab(
+  x,
+  speaker,
+  filter = NULL,
+  smooth = 0.5,
+  nfold = 5,
+  cutoff_pcts = c(50, 60, 70, 80, 90, 99)
+)
 }
 \arguments{
 \item{x}{Corpus as text vector. May be a \code{corpus_frame} object}

@@ -2,7 +2,6 @@ language: r
 r:
   - oldrel
   - release
-  - devel
   
 cache: packages
 
@@ -10,8 +9,6 @@ os:
   - linux
   - osx
   
-sudo: false
-
 before_install:
   - Rscript -e 'install.packages("devtools", repos = "http://cran.rstudio.com")'
   - Rscript -e 'install.packages("git2r", repos = "http://cran.rstudio.com")'
@@ -20,4 +17,4 @@ before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
-  skip_cleanup: true
+  cleanup: true

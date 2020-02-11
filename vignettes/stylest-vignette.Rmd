@@ -130,19 +130,19 @@ vocab_with_defaults$nfold
 
 ### Using a percentile to select terms
 
-With the best percentile identified as 80 percent, we can select the terms above that percentile to use in the model. Be sure to use the same `text_filter` here as in the previous step.
+With the best percentile identified as 90 percent, we can select the terms above that percentile to use in the model. Be sure to use the same `text_filter` here as in the previous step.
 
 ```{r echo=TRUE}
-terms_80 <- stylest_terms(novels_excerpts$text, novels_excerpts$author, 80, filter = filter)
+terms_90 <- stylest_terms(novels_excerpts$text, novels_excerpts$author, 90, filter = filter)
 ```
 
 ### Fitting the model
 
-Below, we fit the model using the terms above the 80th percentile, using the same `text_filter` as before, and leaving the smoothing value for term frequencies as the default `0.5`.
+Below, we fit the model using the terms above the 90th percentile, using the same `text_filter` as before, and leaving the smoothing value for term frequencies as the default `0.5`.
 
 ```{r echo=TRUE}
 
-mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, terms = terms_80, filter = filter)
+mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, terms = terms_90, filter = filter)
 
 ```
 
