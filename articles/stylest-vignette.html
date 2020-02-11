@@ -85,7 +85,7 @@
       <h1>stylest vignette</h1>
                         <h4 class="author">Leslie Huang</h4>
             
-            <h4 class="date">2020-02-04</h4>
+            <h4 class="date">2020-02-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.Rmd"><code>vignettes/stylest-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>stylest-vignette.Rmd</code></div>
@@ -214,16 +214,16 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>Let’s look inside the <code>vocab_with_defaults</code> object.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Percentile with best prediction rate</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">vocab_with_defaults<span class="op">$</span>cutoff_pct_best</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; [1] 90</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; [1] 80</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># Rate of INCORRECTLY predicted speakers of held-out texts</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">vocab_with_defaults<span class="op">$</span>miss_pct</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;           [,1]      [,2]      [,3]     [,4]     [,5]     [,6]</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; [1,]  66.66667  66.66667  66.66667 66.66667 66.66667 66.66667</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; [2,]  60.00000  60.00000  60.00000 60.00000 20.00000 40.00000</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [3,] 100.00000 100.00000 100.00000 25.00000 25.00000 75.00000</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [4,] 100.00000 100.00000 100.00000 60.00000 60.00000 60.00000</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; [5,]  50.00000  50.00000  50.00000 50.00000 50.00000 50.00000</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; [1,] 25.00000 25.00000 25.00000  0.00000 50.00000 50.00000</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; [2,] 75.00000 75.00000 75.00000 75.00000 75.00000 75.00000</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [3,] 66.66667 66.66667 66.66667 33.33333 33.33333 33.33333</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [4,] 20.00000 20.00000 20.00000 20.00000 40.00000 40.00000</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; [5,] 80.00000 80.00000 80.00000 60.00000 40.00000 20.00000</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co"># Data on the setup:</span></a>
 <a class="sourceLine" id="cb9-15" data-line-number="15"></a>
@@ -241,15 +241,15 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <div id="using-a-percentile-to-select-terms" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-a-percentile-to-select-terms" class="anchor"></a>Using a percentile to select terms</h3>
-<p>With the best percentile identified as 80 percent, we can select the terms above that percentile to use in the model. Be sure to use the same <code>text_filter</code> here as in the previous step.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">terms_<span class="dv">80</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_terms.html">stylest_terms</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dv">80</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
+<p>With the best percentile identified as 90 percent, we can select the terms above that percentile to use in the model. Be sure to use the same <code>text_filter</code> here as in the previous step.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">terms_<span class="dv">90</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_terms.html">stylest_terms</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dv">90</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
 </div>
 <div id="fitting-the-model" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fitting-the-model" class="anchor"></a>Fitting the model</h3>
-<p>Below, we fit the model using the terms above the 80th percentile, using the same <code>text_filter</code> as before, and leaving the smoothing value for term frequencies as the default <code>0.5</code>.</p>
+<p>Below, we fit the model using the terms above the 90th percentile, using the same <code>text_filter</code> as before, and leaving the smoothing value for term frequencies as the default <code>0.5</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">mod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_fit.html">stylest_fit</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dt">terms =</span> terms_<span class="dv">80</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
+<a class="sourceLine" id="cb11-2" data-line-number="2">mod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_fit.html">stylest_fit</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dt">terms =</span> terms_<span class="dv">90</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
 <p>The model contains detailed information about token usage by each of the authors; exploring this is left as an exercise.</p>
 </div>
 </div>
@@ -267,10 +267,10 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt; [1] "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. \"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer. \"Do you not want to know who has taken it?\" cried his wife impatiently. \"_You_ want to tell me, and I have no objection to hearing it.\" This was invitation enough."</span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb13-5" data-line-number="5">odds<span class="op">$</span>log_odds_avg[<span class="dv">14</span>]</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [1] 0.2491968</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; [1] 0.1932154</span></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">odds<span class="op">$</span>log_odds_se[<span class="dv">14</span>]</a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; [1] 0.1290187</span></a></code></pre></div>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; [1] 0.1080464</span></a></code></pre></div>
 </div>
 <div id="predicting-the-speaker-of-a-new-text" class="section level3">
 <h3 class="hasAnchor">
@@ -295,7 +295,7 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <a class="sourceLine" id="cb15-5" data-line-number="5">pred<span class="op">$</span>log_probs</a>
 <a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 1 x 3 Matrix of class "dgeMatrix"</span></a>
 <a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt;      Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; [1,]  -1.1956e-05     -42.61985                   -11.33428</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt; [1,] -1.94592e-05     -41.66117                    -10.8472</span></a></code></pre></div>
 </div>
 <div id="influential-terms" class="section level3">
 <h3 class="hasAnchor">
@@ -328,10 +328,10 @@ infl_max
 the
 </td>
 <td style="text-align:right;">
-3.1276856
+3.1516807
 </td>
 <td style="text-align:right;">
-5.943936
+5.978128
 </td>
 </tr>
 <tr>
@@ -342,10 +342,10 @@ the
 of
 </td>
 <td style="text-align:right;">
-1.2237994
+1.2827110
 </td>
 <td style="text-align:right;">
-1.624485
+1.643542
 </td>
 </tr>
 <tr>
@@ -356,10 +356,10 @@ of
 i
 </td>
 <td style="text-align:right;">
-1.1128586
+1.0793536
 </td>
 <td style="text-align:right;">
-2.445026
+2.371517
 </td>
 </tr>
 <tr>
@@ -370,10 +370,10 @@ i
 was
 </td>
 <td style="text-align:right;">
-0.9560661
+0.9463016
 </td>
 <td style="text-align:right;">
-2.513274
+2.469169
 </td>
 </tr>
 <tr>
@@ -384,10 +384,10 @@ was
 her
 </td>
 <td style="text-align:right;">
-0.8214846
+0.8258614
 </td>
 <td style="text-align:right;">
-2.276707
+2.300864
 </td>
 </tr>
 <tr>
@@ -398,10 +398,10 @@ her
 on
 </td>
 <td style="text-align:right;">
-0.8014783
+0.8044003
 </td>
 <td style="text-align:right;">
-1.868317
+1.874483
 </td>
 </tr>
 </tbody>
@@ -424,72 +424,72 @@ infl_max
 <tbody>
 <tr>
 <td style="text-align:left;">
-249
+125
 </td>
 <td style="text-align:left;">
-taken
+first
 </td>
 <td style="text-align:right;">
-0.0213342
+0.0347210
 </td>
 <td style="text-align:right;">
-0.0621163
+0.0682297
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-252
+139
 </td>
 <td style="text-align:left;">
-thought
+tell
 </td>
 <td style="text-align:right;">
-0.0213342
+0.0347210
 </td>
 <td style="text-align:right;">
-0.0621163
+0.0682297
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-254
+94
 </td>
 <td style="text-align:left;">
-turned
+know
 </td>
 <td style="text-align:right;">
-0.0213342
+0.0244041
 </td>
 <td style="text-align:right;">
-0.0621163
+0.0349626
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-259
+97
 </td>
 <td style="text-align:left;">
-whose
+much
 </td>
 <td style="text-align:right;">
-0.0213342
+0.0244041
 </td>
 <td style="text-align:right;">
-0.0621163
+0.0349626
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-260
+99
 </td>
 <td style="text-align:left;">
-woman
+three
 </td>
 <td style="text-align:right;">
-0.0213342
+0.0244041
 </td>
 <td style="text-align:right;">
-0.0621163
+0.0349626
 </td>
 </tr>
 <tr>
@@ -500,10 +500,10 @@ woman
 from
 </td>
 <td style="text-align:right;">
-0.0111362
+0.0062509
 </td>
 <td style="text-align:right;">
-0.0168330
+0.0094170
 </td>
 </tr>
 </tbody>
