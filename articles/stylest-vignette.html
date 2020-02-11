@@ -214,16 +214,16 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>Let’s look inside the <code>vocab_with_defaults</code> object.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># Percentile with best prediction rate</span></a>
 <a class="sourceLine" id="cb9-2" data-line-number="2">vocab_with_defaults<span class="op">$</span>cutoff_pct_best</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; [1] 80</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; [1] 90</span></a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"></a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># Rate of INCORRECTLY predicted speakers of held-out texts</span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">vocab_with_defaults<span class="op">$</span>miss_pct</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; [1,] 25.00000 25.00000 25.00000  0.00000 50.00000 50.00000</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; [2,] 75.00000 75.00000 75.00000 75.00000 75.00000 75.00000</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [3,] 66.66667 66.66667 66.66667 33.33333 33.33333 33.33333</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [4,] 20.00000 20.00000 20.00000 20.00000 40.00000 40.00000</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; [5,] 80.00000 80.00000 80.00000 60.00000 40.00000 20.00000</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt;           [,1]      [,2]      [,3]     [,4]     [,5]     [,6]</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; [1,]  66.66667  66.66667  66.66667 66.66667 66.66667 66.66667</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; [2,]  60.00000  60.00000  60.00000 60.00000 20.00000 40.00000</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; [3,] 100.00000 100.00000 100.00000 25.00000 25.00000 75.00000</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; [4,] 100.00000 100.00000 100.00000 60.00000 60.00000 60.00000</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; [5,]  50.00000  50.00000  50.00000 50.00000 50.00000 50.00000</span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co"># Data on the setup:</span></a>
 <a class="sourceLine" id="cb9-15" data-line-number="15"></a>
