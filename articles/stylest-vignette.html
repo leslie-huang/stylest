@@ -214,16 +214,16 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>Let’s look inside the <code>vocab_with_defaults</code> object.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="co"># Percentile with best prediction rate</span>
 <span class="no">vocab_with_defaults</span>$<span class="no">cutoff_pct_best</span>
-<span class="co">#&gt; [1] 80</span>
+<span class="co">#&gt; [1] 90</span>
 
 <span class="co"># Rate of INCORRECTLY predicted speakers of held-out texts</span>
 <span class="no">vocab_with_defaults</span>$<span class="no">miss_pct</span>
-<span class="co">#&gt;          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]</span>
-<span class="co">#&gt; [1,] 25.00000 25.00000 25.00000  0.00000 50.00000 50.00000</span>
-<span class="co">#&gt; [2,] 75.00000 75.00000 75.00000 75.00000 75.00000 75.00000</span>
-<span class="co">#&gt; [3,] 66.66667 66.66667 66.66667 33.33333 33.33333 33.33333</span>
-<span class="co">#&gt; [4,] 20.00000 20.00000 20.00000 20.00000 40.00000 40.00000</span>
-<span class="co">#&gt; [5,] 80.00000 80.00000 80.00000 60.00000 40.00000 20.00000</span>
+<span class="co">#&gt;           [,1]      [,2]      [,3]     [,4]     [,5]     [,6]</span>
+<span class="co">#&gt; [1,]  66.66667  66.66667  66.66667 66.66667 66.66667 66.66667</span>
+<span class="co">#&gt; [2,]  60.00000  60.00000  60.00000 60.00000 20.00000 40.00000</span>
+<span class="co">#&gt; [3,] 100.00000 100.00000 100.00000 25.00000 25.00000 75.00000</span>
+<span class="co">#&gt; [4,] 100.00000 100.00000 100.00000 60.00000 60.00000 60.00000</span>
+<span class="co">#&gt; [5,]  50.00000  50.00000  50.00000 50.00000 50.00000 50.00000</span>
 
 <span class="co"># Data on the setup:</span>
 
