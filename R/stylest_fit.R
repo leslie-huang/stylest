@@ -17,19 +17,23 @@
 #' See \code{corpus} for more information about specifying \code{filter}
 #' @param smooth Numeric value used smooth term frequencies instead of the
 #'   default of 0.5
+#' @param embedding_distances Dataframe of distances (or any weights) per 
+#' word in the vocab
 #' @return A S3 \code{stylest_model} object containing:
 #' \code{speakers} Vector of unique speakers,
 #' \code{filter} text_filter used,
 #' \code{terms} terms used in fitting the model,
 #' \code{ntoken} Vector of number of tokens per speaker,
 #' \code{smooth} Smoothing value,
+#' 
 #' \code{rate} Matrix of speaker rates for each term in vocabulary
 #' 
 #' @examples
 #' data(novels_excerpts)
 #' speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 #' 
-stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5)
+stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5, 
+                        embedding_distances = NULL)
 {
   
   if (smooth <= 0) {
@@ -51,7 +55,7 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5)
     smooth <- as.numeric(smooth)[[1]]
 
     # fit the model
-    model <- fit_term_usage(x, speaker, terms, smooth)
+    model <- fit_term_usage(x, speaker, terms, smooth, embedding_distances)
     cl <- "stylest_model_term"
 
     # package everything in an object
@@ -71,10 +75,12 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5)
 #'   \code{x}
 #' @param terms Vocabulary for document term matrix
 #' @param smooth Numeric value used smooth term frequencies
+#' @param embedding_distances Dataframe of distances (or any weights) per 
+#' word in the vocab
 #' @return named list of terms, vector of num tokens uttered by each speaker,
 #'   smoothing value, and (smoothed) term usage rate matrix
 #'   
-fit_term_usage <- function(x, speaker, terms, smooth)
+fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
 {
     # get a term matrix for the selected terms and selected speaker
     selected_dtm <- corpus::term_matrix(x, select = terms, group = speaker)
@@ -87,6 +93,27 @@ fit_term_usage <- function(x, speaker, terms, smooth)
 
     # compute the (smoothed) usage rates
     rate <- (as.matrix(selected_dtm) + smooth) / (ntok + smooth * ntype)
+    
+    if (missing(embedding_distances)) {
+      print("Skipping weights")
+    }
+    else {
+      # construct vector of multipliers for words in same order as rate
+      
+      weights <- c()
+      for (word in colnames(rate)) {
+        if (word %in% embedding_distances$word) {
+          weights <- c(weights, embedding_distances[embedding_distances$word == word, "mean_distance"])
+        }
+        else {
+          weights <- c(weights, 1)
+        }
+      }
+      
+      # multiply each word's rate by its embedding distance/weight
+      rate <- t(t(rate) * weights)
+    }
+    
     
     list(terms = terms, ntoken = ntok, smooth = smooth, rate = rate)
 }
