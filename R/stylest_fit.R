@@ -37,7 +37,7 @@
 #' speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 #' 
 stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5, 
-                        term_weights = NULL, weight_varname = NULL)
+                        term_weights = NULL, weight_varname = "mean_distance")
 {
   
   if (smooth <= 0) {
@@ -82,12 +82,11 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
 #' @param term_weights Dataframe of distances (or any weights) per 
 #' word in the vocab. This dataframe should have one column $word and 
 #' a second column $weight_var containing the weight for the word
-#' @param weight_varname Name of the column in term_weights containing the weights,
-#' default="mean_distance"
+#' @param weight_varname Name of the column in term_weights containing the weights
 #' @return named list of terms, vector of num tokens uttered by each speaker,
 #'   smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix
 #'   
-fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varname = "mean_distance")
+fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varname)
 {
     # get a term matrix for the selected terms and selected speaker
     selected_dtm <- corpus::term_matrix(x, select = terms, group = speaker)
