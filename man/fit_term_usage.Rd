@@ -4,7 +4,7 @@
 \alias{fit_term_usage}
 \title{Computes speakers' term usage rates}
 \usage{
-fit_term_usage(x, speaker, terms, smooth)
+fit_term_usage(x, speaker, terms, smooth, term_weights, weight_varname)
 }
 \arguments{
 \item{x}{Text vector. May be a \code{corpus_frame} object}
@@ -15,10 +15,16 @@ fit_term_usage(x, speaker, terms, smooth)
 \item{terms}{Vocabulary for document term matrix}
 
 \item{smooth}{Numeric value used smooth term frequencies}
+
+\item{term_weights}{Dataframe of distances (or any weights) per 
+word in the vocab. This dataframe should have one column $word and 
+a second column $weight_var containing the weight for the word}
+
+\item{weight_varname}{Name of the column in term_weights containing the weights}
 }
 \value{
 named list of terms, vector of num tokens uttered by each speaker,
-  smoothing value, and (smoothed) term usage rate matrix
+  smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix
 }
 \description{
 Computes speakers' term usage rates
