@@ -112,6 +112,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
           weights <- c(weights, 1)
         }
       }
+      names(weights) <- colnames(rate)
       
       # multiply each word's rate by its embedding distance/weight
       rate <- t(t(rate) * weights)
