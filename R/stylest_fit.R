@@ -94,7 +94,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
     # compute the (smoothed) usage rates
     rate <- (as.matrix(selected_dtm) + smooth) / (ntok + smooth * ntype)
     
-    if (missing(embedding_distances)) {
+    if (is.null(embedding_distances)) {
       print("No weights")
       weights <- NULL
     }
