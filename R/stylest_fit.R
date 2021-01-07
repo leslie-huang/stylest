@@ -17,8 +17,12 @@
 #' See \code{corpus} for more information about specifying \code{filter}
 #' @param smooth Numeric value used smooth term frequencies instead of the
 #'   default of 0.5
-#' @param embedding_distances Dataframe of distances (or any weights) per 
-#' word in the vocab
+#' @param term_weights Dataframe of distances (or any weights) per 
+#' word in the vocab. This dataframe should have one column $word and 
+#' a second column $weight_var containing the weight for the word.
+#' See the vignette for details.
+#' @param weight_varname Name of the column in term_weights containing the weights,
+#' default="mean_distance"
 #' @return A S3 \code{stylest_model} object containing:
 #' \code{speakers} Vector of unique speakers,
 #' \code{filter} text_filter used,
@@ -33,7 +37,7 @@
 #' speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 #' 
 stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5, 
-                        embedding_distances = NULL)
+                        term_weights = NULL, weight_varname = NULL)
 {
   
   if (smooth <= 0) {
@@ -55,7 +59,7 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
     smooth <- as.numeric(smooth)[[1]]
 
     # fit the model
-    model <- fit_term_usage(x, speaker, terms, smooth, embedding_distances)
+    model <- fit_term_usage(x, speaker, terms, smooth, term_weights, weight_varname)
     cl <- "stylest_model_term"
 
     # package everything in an object
@@ -75,12 +79,15 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
 #'   \code{x}
 #' @param terms Vocabulary for document term matrix
 #' @param smooth Numeric value used smooth term frequencies
-#' @param embedding_distances Dataframe of distances (or any weights) per 
-#' word in the vocab
+#' @param term_weights Dataframe of distances (or any weights) per 
+#' word in the vocab. This dataframe should have one column $word and 
+#' a second column $weight_var containing the weight for the word
+#' @param weight_varname Name of the column in term_weights containing the weights,
+#' default="mean_distance"
 #' @return named list of terms, vector of num tokens uttered by each speaker,
 #'   smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix
 #'   
-fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
+fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varname = "mean_distance")
 {
     # get a term matrix for the selected terms and selected speaker
     selected_dtm <- corpus::term_matrix(x, select = terms, group = speaker)
@@ -101,10 +108,10 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
       # construct vector of multipliers for words in same order as rate
       weights <- c()
       for (word in colnames(rate)) {
-        if (word %in% embedding_distances$word) {
+        if (word %in% term_weights$word) {
           weights <- c(weights, 
-                       embedding_distances[embedding_distances$word == word, 
-                                           "mean_distance"]
+                       term_weights[term_weights$word == word, 
+                                           weight_varname]
                        )
         }
         else {
