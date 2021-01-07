@@ -101,7 +101,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
     # compute the (smoothed) usage rates
     rate <- (as.matrix(selected_dtm) + smooth) / (ntok + smooth * ntype)
 
-    if (is.null(embedding_distances)) {
+    if (is.null(term_weights)) {
       weights <- NULL
     }
     else {
@@ -120,7 +120,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
       }
       names(weights) <- colnames(rate)
       
-      # multiply each word's rate by its embedding distance/weight
+      # multiply each word's rate by its weight
       rate <- t(t(rate) * weights)
     }
     
