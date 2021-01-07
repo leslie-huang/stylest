@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stylest</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -85,7 +85,7 @@
       <h1>stylest vignette</h1>
                         <h4 class="author">Leslie Huang</h4>
             
-            <h4 class="date">2020-02-11</h4>
+            <h4 class="date">2021-01-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.Rmd"><code>vignettes/stylest-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>stylest-vignette.Rmd</code></div>
@@ -244,13 +244,34 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>With the best percentile identified as 90 percent, we can select the terms above that percentile to use in the model. Be sure to use the same <code>text_filter</code> here as in the previous step.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">terms_<span class="dv">90</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_terms.html">stylest_terms</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dv">90</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
 </div>
-<div id="fitting-the-model" class="section level3">
+<div id="fitting-the-model-basic" class="section level3">
 <h3 class="hasAnchor">
-<a href="#fitting-the-model" class="anchor"></a>Fitting the model</h3>
+<a href="#fitting-the-model-basic" class="anchor"></a>Fitting the model: basic</h3>
 <p>Below, we fit the model using the terms above the 90th percentile, using the same <code>text_filter</code> as before, and leaving the smoothing value for term frequencies as the default <code>0.5</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"></a>
 <a class="sourceLine" id="cb11-2" title="2">mod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_fit.html">stylest_fit</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, <span class="dt">terms =</span> terms_<span class="dv">90</span>, <span class="dt">filter =</span> filter)</a></code></pre></div>
-<p>The model contains detailed information about token usage by each of the authors; exploring this is left as an exercise.</p>
+<p>The model contains detailed information about token usage by each of the authors (see <code>mod$rate</code>); exploring this is left as an exercise.</p>
+</div>
+<div id="fitting-the-model-adding-custom-term-weights" class="section level3">
+<h3 class="hasAnchor">
+<a href="#fitting-the-model-adding-custom-term-weights" class="anchor"></a>Fitting the model: adding custom term weights</h3>
+<p>A new feature is the option to specify custom term weights, in the form of a dataframe. The intended use case is the mean cosine distance from the embedding representation of the word to all other words in the vocabulary, but the weights can be anything desired by the user.</p>
+<p>An example <code>term_weights</code> is shown below. When this argument is passed to <code><a href="../reference/stylest_fit.html">stylest_fit()</a></code>, the weights for terms in the model vocabulary will be extracted. Any term not included in <code>term_weights</code> will be assigned a default weight of 1.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
+<a class="sourceLine" id="cb12-2" title="2">term_weights &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="st">"word"</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"the"</span>, <span class="st">"and"</span>, <span class="st">"Floccinaucinihilipilification"</span>),</a>
+<a class="sourceLine" id="cb12-3" title="3">                           <span class="st">"mean_distance"</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.001</span>))</a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5">term_weights</a>
+<a class="sourceLine" id="cb12-6" title="6"><span class="co">#&gt;                            word mean_distance</span></a>
+<a class="sourceLine" id="cb12-7" title="7"><span class="co">#&gt; 1                           the         0.100</span></a>
+<a class="sourceLine" id="cb12-8" title="8"><span class="co">#&gt; 2                           and         0.200</span></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="co">#&gt; 3 Floccinaucinihilipilification         0.001</span></a></code></pre></div>
+<p>Below is an example of fitting the model with <code>term_weights</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">mod &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_fit.html">stylest_fit</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, </a>
+<a class="sourceLine" id="cb13-2" title="2">                   <span class="dt">terms =</span> terms_<span class="dv">90</span>, <span class="dt">filter =</span> filter,</a>
+<a class="sourceLine" id="cb13-3" title="3">                   <span class="dt">term_weights =</span> term_weights,</a>
+<a class="sourceLine" id="cb13-4" title="4">                   <span class="dt">weight_varname =</span> <span class="st">"mean_distance"</span>)</a></code></pre></div>
+<p>The weights are stored in <code>mod$weights</code>.</p>
 </div>
 </div>
 <div id="using-the-model" class="section level2">
@@ -259,50 +280,50 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <div id="calculating-speaker-log-odds" class="section level3">
 <h3 class="hasAnchor">
 <a href="#calculating-speaker-log-odds" class="anchor"></a>Calculating speaker log odds</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"></a>
-<a class="sourceLine" id="cb12-2" title="2">odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_odds.html">stylest_odds</a></span>(mod, novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
+<a class="sourceLine" id="cb14-2" title="2">odds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_odds.html">stylest_odds</a></span>(mod, novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</a></code></pre></div>
 <p>We can examine the mean log odds that Jane Austen wrote <em>Pride and Prejudice</em> (in-sample).</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># Pride and Prejudice</span></a>
-<a class="sourceLine" id="cb13-2" title="2">novels_excerpts<span class="op">$</span>text[<span class="dv">14</span>]</a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="co">#&gt; [1] "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. \"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer. \"Do you not want to know who has taken it?\" cried his wife impatiently. \"_You_ want to tell me, and I have no objection to hearing it.\" This was invitation enough."</span></a>
-<a class="sourceLine" id="cb13-4" title="4"></a>
-<a class="sourceLine" id="cb13-5" title="5">odds<span class="op">$</span>log_odds_avg[<span class="dv">14</span>]</a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="co">#&gt; [1] 0.1932154</span></a>
-<a class="sourceLine" id="cb13-7" title="7"></a>
-<a class="sourceLine" id="cb13-8" title="8">odds<span class="op">$</span>log_odds_se[<span class="dv">14</span>]</a>
-<a class="sourceLine" id="cb13-9" title="9"><span class="co">#&gt; [1] 0.1080464</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># Pride and Prejudice</span></a>
+<a class="sourceLine" id="cb15-2" title="2">novels_excerpts<span class="op">$</span>text[<span class="dv">14</span>]</a>
+<a class="sourceLine" id="cb15-3" title="3"><span class="co">#&gt; [1] "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. \"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer. \"Do you not want to know who has taken it?\" cried his wife impatiently. \"_You_ want to tell me, and I have no objection to hearing it.\" This was invitation enough."</span></a>
+<a class="sourceLine" id="cb15-4" title="4"></a>
+<a class="sourceLine" id="cb15-5" title="5">odds<span class="op">$</span>log_odds_avg[<span class="dv">14</span>]</a>
+<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; [1] 0.1629508</span></a>
+<a class="sourceLine" id="cb15-7" title="7"></a>
+<a class="sourceLine" id="cb15-8" title="8">odds<span class="op">$</span>log_odds_se[<span class="dv">14</span>]</a>
+<a class="sourceLine" id="cb15-9" title="9"><span class="co">#&gt; [1] 0.08624106</span></a></code></pre></div>
 </div>
 <div id="predicting-the-speaker-of-a-new-text" class="section level3">
 <h3 class="hasAnchor">
 <a href="#predicting-the-speaker-of-a-new-text" class="anchor"></a>Predicting the speaker of a new text</h3>
 <p>In this example, the model is used to predict the speaker of a new text, in this case <em>Northanger Abbey</em> by Jane Austen.</p>
 <p>Note that a <code>prior</code> may be specified, and may be useful for handling texts containing out-of-sample terms. Here, we do not specify a prior, so a uniform prior is used.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"></a>
-<a class="sourceLine" id="cb14-2" title="2">na_text &lt;-<span class="st"> "No one who had ever seen Catherine Morland in her infancy would have supposed </span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="st">            her born to be an heroine. Her situation in life, the character of her father </span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="st">            and mother, her own person and disposition, were all equally against her. Her </span></a>
-<a class="sourceLine" id="cb14-5" title="5"><span class="st">            father was a clergyman, without being neglected, or poor, and a very respectable </span></a>
-<a class="sourceLine" id="cb14-6" title="6"><span class="st">            man, though his name was Richard—and he had never been handsome. He had a </span></a>
-<a class="sourceLine" id="cb14-7" title="7"><span class="st">            considerable independence besides two good livings—and he was not in the least </span></a>
-<a class="sourceLine" id="cb14-8" title="8"><span class="st">            addicted to locking up his daughters."</span></a>
-<a class="sourceLine" id="cb14-9" title="9"></a>
-<a class="sourceLine" id="cb14-10" title="10">pred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_predict.html">stylest_predict</a></span>(mod, na_text)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
+<a class="sourceLine" id="cb16-2" title="2">na_text &lt;-<span class="st"> "No one who had ever seen Catherine Morland in her infancy would have supposed </span></a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="st">            her born to be an heroine. Her situation in life, the character of her father </span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="st">            and mother, her own person and disposition, were all equally against her. Her </span></a>
+<a class="sourceLine" id="cb16-5" title="5"><span class="st">            father was a clergyman, without being neglected, or poor, and a very respectable </span></a>
+<a class="sourceLine" id="cb16-6" title="6"><span class="st">            man, though his name was Richard—and he had never been handsome. He had a </span></a>
+<a class="sourceLine" id="cb16-7" title="7"><span class="st">            considerable independence besides two good livings—and he was not in the least </span></a>
+<a class="sourceLine" id="cb16-8" title="8"><span class="st">            addicted to locking up his daughters."</span></a>
+<a class="sourceLine" id="cb16-9" title="9"></a>
+<a class="sourceLine" id="cb16-10" title="10">pred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_predict.html">stylest_predict</a></span>(mod, na_text)</a></code></pre></div>
 <p>Viewing the result, and recovering the log probabilities calculated for each speaker, is simple:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">pred<span class="op">$</span>predicted</a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="co">#&gt; [1] Austen, Jane</span></a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="co">#&gt; Levels: Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></a>
-<a class="sourceLine" id="cb15-4" title="4"></a>
-<a class="sourceLine" id="cb15-5" title="5">pred<span class="op">$</span>log_probs</a>
-<a class="sourceLine" id="cb15-6" title="6"><span class="co">#&gt; 1 x 3 Matrix of class "dgeMatrix"</span></a>
-<a class="sourceLine" id="cb15-7" title="7"><span class="co">#&gt;      Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></a>
-<a class="sourceLine" id="cb15-8" title="8"><span class="co">#&gt; [1,] -1.94592e-05     -41.66117                    -10.8472</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">pred<span class="op">$</span>predicted</a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="co">#&gt; [1] Austen, Jane</span></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="co">#&gt; Levels: Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></a>
+<a class="sourceLine" id="cb17-4" title="4"></a>
+<a class="sourceLine" id="cb17-5" title="5">pred<span class="op">$</span>log_probs</a>
+<a class="sourceLine" id="cb17-6" title="6"><span class="co">#&gt; 1 x 3 Matrix of class "dgeMatrix"</span></a>
+<a class="sourceLine" id="cb17-7" title="7"><span class="co">#&gt;       Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></a>
+<a class="sourceLine" id="cb17-8" title="8"><span class="co">#&gt; [1,] -3.552827e-05     -37.08795                    -10.2452</span></a></code></pre></div>
 </div>
 <div id="influential-terms" class="section level3">
 <h3 class="hasAnchor">
 <a href="#influential-terms" class="anchor"></a>Influential terms</h3>
 <p><code>stylest_term_influence</code> identifies terms’ contributions to speakers’ distinctiveness in a fitted model.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"></a>
-<a class="sourceLine" id="cb16-2" title="2">influential_terms &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_term_influence.html">stylest_term_influence</a></span>(mod, novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"></a>
+<a class="sourceLine" id="cb18-2" title="2">influential_terms &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_term_influence.html">stylest_term_influence</a></span>(mod, novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</a></code></pre></div>
 <p>The mean and maximum influence can be accessed with <code>$infl_avg</code> and <code>$infl_max</code>, respectively.</p>
 <p>The terms with the highest mean influence can be obtained:</p>
 <table class="table table table-striped table-hover">

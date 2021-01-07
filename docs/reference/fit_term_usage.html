@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stylest</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@
     <p>Computes speakers' term usage rates</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit_term_usage</span>(<span class='no'>x</span>, <span class='no'>speaker</span>, <span class='no'>terms</span>, <span class='no'>smooth</span>)</pre>
+    <pre class="usage"><span class='fu'>fit_term_usage</span>(<span class='no'>x</span>, <span class='no'>speaker</span>, <span class='no'>terms</span>, <span class='no'>smooth</span>, <span class='no'>term_weights</span>, <span class='no'>weight_varname</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,12 +151,22 @@
       <th>smooth</th>
       <td><p>Numeric value used smooth term frequencies</p></td>
     </tr>
+    <tr>
+      <th>term_weights</th>
+      <td><p>Dataframe of distances (or any weights) per 
+word in the vocab. This dataframe should have one column $word and 
+a second column $weight_var containing the weight for the word</p></td>
+    </tr>
+    <tr>
+      <th>weight_varname</th>
+      <td><p>Name of the column in term_weights containing the weights</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>named list of terms, vector of num tokens uttered by each speaker,
-  smoothing value, and (smoothed) term usage rate matrix</p>
+  smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

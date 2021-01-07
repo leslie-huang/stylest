@@ -70,7 +70,7 @@ model using a corpus of texts labeled by speaker." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">stylest</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -131,7 +131,15 @@ model using a corpus of texts labeled by speaker." />
 model using a corpus of texts labeled by speaker.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stylest_fit</span>(<span class='no'>x</span>, <span class='no'>speaker</span>, <span class='kw'>terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</pre>
+    <pre class="usage"><span class='fu'>stylest_fit</span>(
+  <span class='no'>x</span>,
+  <span class='no'>speaker</span>,
+  <span class='kw'>terms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>term_weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>weight_varname</span> <span class='kw'>=</span> <span class='st'>"mean_distance"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,6 +168,18 @@ See <code>corpus</code> for more information about specifying <code>filter</code
       <td><p>Numeric value used smooth term frequencies instead of the
 default of 0.5</p></td>
     </tr>
+    <tr>
+      <th>term_weights</th>
+      <td><p>Dataframe of distances (or any weights) per 
+word in the vocab. This dataframe should have one column $word and 
+a second column $weight_var containing the weight for the word.
+See the vignette for details.</p></td>
+    </tr>
+    <tr>
+      <th>weight_varname</th>
+      <td><p>Name of the column in term_weights containing the weights,
+default="mean_distance"</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -170,6 +190,7 @@ default of 0.5</p></td>
 <code>terms</code> terms used in fitting the model,
 <code>ntoken</code> Vector of number of tokens per speaker,
 <code>smooth</code> Smoothing value,
+<code>weights</code> If not NULL, a named matrix of weights for each term in the vocab,
 <code>rate</code> Matrix of speaker rates for each term in vocabulary</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
