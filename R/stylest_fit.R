@@ -111,8 +111,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
         if (word %in% term_weights$word) {
           weights <- c(weights, 
                        term_weights[term_weights$word == word, 
-                                           weight_varname]
-                       )
+                                           weight_varname])
         }
         else {
           weights <- c(weights, 1)
