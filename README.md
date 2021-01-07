@@ -28,7 +28,7 @@ with:
 ```
 
 See the
-<a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.md">vignette</a>
+<a href="https://leslie-huang.github.io/stylest/articles/stylest-vignette.html">vignette</a>
 for examples and usage.
 
 ## Authors
