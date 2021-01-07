@@ -136,7 +136,7 @@ With the best percentile identified as 90 percent, we can select the terms above
 terms_90 <- stylest_terms(novels_excerpts$text, novels_excerpts$author, 90, filter = filter)
 ```
 
-### Fitting the model
+### Fitting the model: basic
 
 Below, we fit the model using the terms above the 90th percentile, using the same `text_filter` as before, and leaving the smoothing value for term frequencies as the default `0.5`.
 
@@ -146,7 +146,33 @@ mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, terms = terms_9
 
 ```
 
-The model contains detailed information about token usage by each of the authors; exploring this is left as an exercise.
+The model contains detailed information about token usage by each of the authors (see `mod$rate`); exploring this is left as an exercise.
+
+### Fitting the model: adding custom term weights
+
+A new feature is the option to specify custom term weights, in the form of a dataframe. The intended use case is the mean cosine distance from the embedding representation of the word to all other words in the vocabulary, but the weights can be anything desired by the user. 
+
+An example `term_weights` is shown below. When this argument is passed to `stylest_fit()`, the weights for terms in the model vocabulary will be extracted. Any term not included in `term_weights` will be assigned a default weight of 1.
+
+```{r echo = TRUE}
+
+term_weights <- data.frame("word" = c("the", "and", "Floccinaucinihilipilification"),
+                           "mean_distance" = c(0.1,0.2,0.001))
+
+term_weights
+```
+
+Below is an example of fitting the model with `term_weights`:
+
+```{r echo = TRUE}
+mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author, 
+                   terms = terms_90, filter = filter,
+                   term_weights = term_weights,
+                   weight_varname = "mean_distance")
+
+```
+
+The weights are stored in `mod$weights`.
 
 ## Using the model
 

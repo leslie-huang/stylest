@@ -1,5 +1,5 @@
 Package: stylest
-Version: 0.1.0
+Version: 0.2.0
 Title: Estimating Speaker Style Distinctiveness
 Authors@R: c(
   person("Leslie", "Huang",
@@ -19,7 +19,7 @@ Suggests:
   rmarkdown,
   testthat,
   kableExtra
-Description: Estimates distinctiveness in speakers' (authors') style. Fits models that can be used for predicting speakers of new texts. Methods developed in Spirling et al (2018) <doi:10.2139/ssrn.3235506> (working paper).
+Description: Estimates distinctiveness in speakers' (authors') style. Fits models that can be used for predicting speakers of new texts. Methods developed in Huang et al (2020) <doi:10.1017/pan.2019.49>.
 License: GPL-3
 URL: https://github.com/leslie-huang/stylest
 BugReports: https://github.com/leslie-huang/stylest/issues
