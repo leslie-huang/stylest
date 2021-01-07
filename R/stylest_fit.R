@@ -25,7 +25,7 @@
 #' \code{terms} terms used in fitting the model,
 #' \code{ntoken} Vector of number of tokens per speaker,
 #' \code{smooth} Smoothing value,
-#' 
+#' \code{weights} If not NULL, a dataframe of weights for each term in the vocab
 #' \code{rate} Matrix of speaker rates for each term in vocabulary
 #' 
 #' @examples
@@ -78,7 +78,7 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
 #' @param embedding_distances Dataframe of distances (or any weights) per 
 #' word in the vocab
 #' @return named list of terms, vector of num tokens uttered by each speaker,
-#'   smoothing value, and (smoothed) term usage rate matrix
+#'   smoothing value, term weights if applicable, and (smoothed) term usage rate matrix
 #'   
 fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
 {
@@ -95,7 +95,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
     rate <- (as.matrix(selected_dtm) + smooth) / (ntok + smooth * ntype)
     
     if (missing(embedding_distances)) {
-      print("Skipping weights")
+      weights <- NULL
     }
     else {
       # construct vector of multipliers for words in same order as rate
@@ -115,7 +115,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
     }
     
     
-    list(terms = terms, ntoken = ntok, smooth = smooth, rate = rate)
+    list(terms = terms, ntoken = ntok, smooth = smooth, weights=weights, rate = rate)
 }
 
 #'
