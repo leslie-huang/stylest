@@ -95,15 +95,18 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
     rate <- (as.matrix(selected_dtm) + smooth) / (ntok + smooth * ntype)
     
     if (missing(embedding_distances)) {
+      print("No weights")
       weights <- NULL
     }
     else {
       # construct vector of multipliers for words in same order as rate
-      
       weights <- c()
       for (word in colnames(rate)) {
         if (word %in% embedding_distances$word) {
-          weights <- c(weights, embedding_distances[embedding_distances$word == word, "mean_distance"])
+          weights <- c(weights, 
+                       embedding_distances[embedding_distances$word == word, 
+                                           "mean_distance"]
+                       )
         }
         else {
           weights <- c(weights, 1)
@@ -115,7 +118,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, embedding_distances)
     }
     
     
-    list(terms = terms, ntoken = ntok, smooth = smooth, weights=weights, rate = rate)
+    list(terms = terms, ntoken = ntok, smooth = smooth, weights = weights, rate = rate)
 }
 
 #'
