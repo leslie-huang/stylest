@@ -21,8 +21,9 @@
 #' word in the vocab. This dataframe should have one column $word and 
 #' a second column $weight_var containing the weight for the word.
 #' See the vignette for details.
-#' @param weight_varname Name of the column in term_weights containing the weights,
-#' default="mean_distance"
+#' @param fill_weight numeric value to fill in as weight for any term
+#' which does not have a weight specified in \code{term_weights}, default=\code{1.0}
+#' @param weight_varname Name of the column in term_weights containing the weights, default=\code{"mean_distance"}
 #' @return A S3 \code{stylest_model} object containing:
 #' \code{speakers} Vector of unique speakers,
 #' \code{filter} text_filter used,
@@ -37,7 +38,8 @@
 #' speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 #' 
 stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5, 
-                        term_weights = NULL, weight_varname = "mean_distance")
+                        term_weights = NULL, weight_varname = "mean_distance",
+                        fill_weight=1.0)
 {
   
   if (smooth <= 0) {
@@ -59,7 +61,8 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
     smooth <- as.numeric(smooth)[[1]]
 
     # fit the model
-    model <- fit_term_usage(x, speaker, terms, smooth, term_weights, weight_varname)
+    model <- fit_term_usage(x, speaker, terms, smooth, term_weights, 
+                            weight_varname, fill_weight)
     cl <- "stylest_model_term"
 
     # package everything in an object
@@ -85,8 +88,10 @@ stylest_fit <- function(x, speaker, terms = NULL, filter = NULL, smooth = 0.5,
 #' @param weight_varname Name of the column in term_weights containing the weights
 #' @return named list of terms, vector of num tokens uttered by each speaker,
 #'   smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix
+#' @param fill_weight numeric value to fill in as weight for any term
+#' which does not have a weight specified in \code{term_weights}
 #'   
-fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varname)
+fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varname, fill_weight)
 {
     # get a term matrix for the selected terms and selected speaker
     selected_dtm <- corpus::term_matrix(x, select = terms, group = speaker)
@@ -113,7 +118,7 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
                                            weight_varname])
         }
         else {
-          weights <- c(weights, 1)
+          weights <- c(weights, fill_weight)
         }
       }
       names(weights) <- colnames(rate)
