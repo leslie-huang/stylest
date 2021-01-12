@@ -4,7 +4,15 @@
 \alias{fit_term_usage}
 \title{Computes speakers' term usage rates}
 \usage{
-fit_term_usage(x, speaker, terms, smooth, term_weights, weight_varname)
+fit_term_usage(
+  x,
+  speaker,
+  terms,
+  smooth,
+  term_weights,
+  weight_varname,
+  fill_weight
+)
 }
 \arguments{
 \item{x}{Text vector. May be a \code{corpus_frame} object}
@@ -21,6 +29,9 @@ word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word}
 
 \item{weight_varname}{Name of the column in term_weights containing the weights}
+
+\item{fill_weight}{numeric value to fill in as weight for any term
+which does not have a weight specified in \code{term_weights}}
 }
 \value{
 named list of terms, vector of num tokens uttered by each speaker,

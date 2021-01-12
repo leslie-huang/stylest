@@ -11,7 +11,8 @@ stylest_fit(
   filter = NULL,
   smooth = 0.5,
   term_weights = NULL,
-  weight_varname = "mean_distance"
+  weight_varname = "mean_distance",
+  fill_weight = 1
 )
 }
 \arguments{
@@ -34,8 +35,10 @@ word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word.
 See the vignette for details.}
 
-\item{weight_varname}{Name of the column in term_weights containing the weights,
-default="mean_distance"}
+\item{weight_varname}{Name of the column in term_weights containing the weights, default=\code{"mean_distance"}}
+
+\item{fill_weight}{numeric value to fill in as weight for any term
+which does not have a weight specified in \code{term_weights}, default=\code{1.0}}
 }
 \value{
 A S3 \code{stylest_model} object containing:
