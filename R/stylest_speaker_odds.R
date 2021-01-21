@@ -50,7 +50,9 @@ stylest_odds <- function(model, text, speaker, prior = NULL)
     # multiply by term weights
     # make sure weights are in the same order for matrix multiplication
     sorted_weights <- model$weights[colnames(eta)]
-    eta <- eta * sorted_weights
+    for (i in 1:nrow(eta)) {
+      eta[i, ] <- eta[i, ] * sorted_weights
+    }
     
     loglik <- x %*% t(eta) - ntok %*% t(Matrix::rowSums(model$rate))
     rownames(loglik) <- rownames(x)
