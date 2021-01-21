@@ -43,6 +43,12 @@ stylest_predict <- function(model, text, prior = NULL)
     # the speakers; don't worry about the normalizing constant since
     # it is the same for all speakers
     eta <- log(model$rate)
+    
+    # multiply by term weights
+    # make sure weights are in the same order for matrix multiplication
+    sorted_weights <- model$weights[colnames(eta)]
+    eta <- eta * sorted_weights
+    
     loglik <- x %*% t(eta) - ntok %*% t(rowSums(model$rate))
     rownames(loglik) <- rownames(x)
 
