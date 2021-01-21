@@ -122,9 +122,6 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
         }
       }
       names(weights) <- colnames(rate)
-      
-      # multiply each word's rate by its weight
-      rate <- t(t(rate) * weights)
     }
     
     
