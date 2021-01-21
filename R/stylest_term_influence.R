@@ -37,14 +37,17 @@ stylest_term_influence <- function(model, text, speaker)
     etabar <- Matrix::colMeans(eta)
     eta_centered <- eta - matrix(1, nrow(eta), 1) %*% etabar
     
-    # multiply by term weights
-    sorted_weights <- model$weights[colnames(d)]
-    for (i in 1:nrow(d)) {
-      d[i, ] <- d[i, ] * sorted_weights
-    }
-
     d <- fbar * eta_centered
-
+    
+    # multiply by term weights if they exist
+    if (!is.null(model$weights)) {
+      # make sure weights are in the same order for matrix multiplication
+      sorted_weights <- model$weights[colnames(d)]
+      for (i in 1:nrow(d)) {
+        d[i, ] <- d[i, ] * sorted_weights
+      }
+    }
+    
     term <- model$terms
     infl_avg <- apply(abs(d), 2, mean)
     infl_max <- apply(abs(d), 2, max)
