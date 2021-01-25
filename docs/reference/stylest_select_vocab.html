@@ -137,7 +137,10 @@ predicting out-of-sampletexts.</p>
   <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>nfold</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>cutoff_pcts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>, <span class='fl'>90</span>, <span class='fl'>99</span>)
+  <span class='kw'>cutoff_pcts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>, <span class='fl'>90</span>, <span class='fl'>99</span>),
+  <span class='kw'>term_weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fill_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>weight_varname</span> <span class='kw'>=</span> <span class='st'>"mean_distance"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -168,6 +171,24 @@ predicting out-of-sampletexts.</p>
       <th>cutoff_pcts</th>
       <td><p>Vector of cutoff percentages to test. Defaults to
 <code><a href='https://rdrr.io/r/base/c.html'>c(50, 60, 70, 80, 90, 99)</a></code></p></td>
+    </tr>
+    <tr>
+      <th>term_weights</th>
+      <td><p>Dataframe of distances (or any weights) per 
+word in the vocab. This dataframe should have one column $word and 
+a second column $weight_var containing the weight for the word.
+See the vignette for details.</p></td>
+    </tr>
+    <tr>
+      <th>fill_weight</th>
+      <td><p>numeric value to fill in as weight for any term
+which does not have a weight specified in <code>term_weights</code>, 
+default=<code>1.0</code></p></td>
+    </tr>
+    <tr>
+      <th>weight_varname</th>
+      <td><p>Name of the column in term_weights containing 
+the weights, default=<code>"mean_distance"</code></p></td>
     </tr>
     </table>
 
