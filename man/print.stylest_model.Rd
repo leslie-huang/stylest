@@ -22,5 +22,5 @@ Custom print method for stylest_model
 data(novels_excerpts)
 speaker_mod <- stylest_fit(novels_excerpts$text, novels_excerpts$author)
 print(speaker_mod)
- 
+
 }

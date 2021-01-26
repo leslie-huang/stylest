@@ -138,8 +138,9 @@ model using a corpus of texts labeled by speaker.</p>
   <span class='kw'>filter</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>smooth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
   <span class='kw'>term_weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>weight_varname</span> <span class='kw'>=</span> <span class='st'>"mean_distance"</span>,
-  <span class='kw'>fill_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>
+  <span class='kw'>fill_method</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
+  <span class='kw'>fill_weight</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>weight_varname</span> <span class='kw'>=</span> <span class='st'>"mean_distance"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,19 +172,27 @@ default of 0.5</p></td>
     </tr>
     <tr>
       <th>term_weights</th>
-      <td><p>Dataframe of distances (or any weights) per 
-word in the vocab. This dataframe should have one column $word and 
+      <td><p>Dataframe of distances (or any weights) per
+word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word.
 See the vignette for details.</p></td>
     </tr>
     <tr>
-      <th>weight_varname</th>
-      <td><p>Name of the column in term_weights containing the weights, default=<code>"mean_distance"</code></p></td>
+      <th>fill_method</th>
+      <td><p>if <code>"value"</code> (default), <code>fill_weight</code> is
+used to fill any terms with <code>NA</code> weight. If <code>"mean"</code>, the
+mean term_weight should be used as the fill value</p></td>
     </tr>
     <tr>
       <th>fill_weight</th>
       <td><p>numeric value to fill in as weight for any term
-which does not have a weight specified in <code>term_weights</code>, default=<code>1.0</code></p></td>
+which does not have a weight specified in <code>term_weights</code>, 
+default=<code>0.0</code> (drops any words without weights)</p></td>
+    </tr>
+    <tr>
+      <th>weight_varname</th>
+      <td><p>Name of the column in term_weights containing the weights,
+default=<code>"mean_distance"</code></p></td>
     </tr>
     </table>
 

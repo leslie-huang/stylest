@@ -11,8 +11,9 @@ stylest_fit(
   filter = NULL,
   smooth = 0.5,
   term_weights = NULL,
-  weight_varname = "mean_distance",
-  fill_weight = 1
+  fill_method = "value",
+  fill_weight = 0,
+  weight_varname = "mean_distance"
 )
 }
 \arguments{
@@ -30,15 +31,21 @@ See \code{corpus} for more information about specifying \code{filter}}
 \item{smooth}{Numeric value used smooth term frequencies instead of the
 default of 0.5}
 
-\item{term_weights}{Dataframe of distances (or any weights) per 
-word in the vocab. This dataframe should have one column $word and 
+\item{term_weights}{Dataframe of distances (or any weights) per
+word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word.
 See the vignette for details.}
 
-\item{weight_varname}{Name of the column in term_weights containing the weights, default=\code{"mean_distance"}}
+\item{fill_method}{if \code{"value"} (default), \code{fill_weight} is
+used to fill any terms with \code{NA} weight. If \code{"mean"}, the
+mean term_weight should be used as the fill value}
 
 \item{fill_weight}{numeric value to fill in as weight for any term
-which does not have a weight specified in \code{term_weights}, default=\code{1.0}}
+which does not have a weight specified in \code{term_weights}, 
+default=\code{0.0} (drops any words without weights)}
+
+\item{weight_varname}{Name of the column in term_weights containing the weights,
+default=\code{"mean_distance"}}
 }
 \value{
 A S3 \code{stylest_model} object containing:

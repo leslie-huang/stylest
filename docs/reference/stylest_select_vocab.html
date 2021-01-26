@@ -139,6 +139,7 @@ predicting out-of-sampletexts.</p>
   <span class='kw'>nfold</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>cutoff_pcts</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>50</span>, <span class='fl'>60</span>, <span class='fl'>70</span>, <span class='fl'>80</span>, <span class='fl'>90</span>, <span class='fl'>99</span>),
   <span class='kw'>cutoffs_term_weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fill_method</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>fill_weight</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>weight_varname</span> <span class='kw'>=</span> <span class='st'>"mean_distance"</span>
 )</pre>
@@ -179,6 +180,12 @@ where the names correspond to the <code>cutoff_pcts</code>. Each dataframe
 should have one column $word and a second column $weight_varname 
 containing the weight for the word.
 See the vignette for details.</p></td>
+    </tr>
+    <tr>
+      <th>fill_method</th>
+      <td><p>if <code>"value"</code> (default), <code>fill_weight</code> is
+used to fill any terms with <code>NA</code> weight. If <code>"mean"</code>, the
+mean term_weight should be used as the fill value</p></td>
     </tr>
     <tr>
       <th>fill_weight</th>

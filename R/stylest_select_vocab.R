@@ -18,6 +18,9 @@
 #' should have one column $word and a second column $weight_varname 
 #' containing the weight for the word.
 #' See the vignette for details.
+#' @param fill_method if \code{"value"} (default), \code{fill_weight} is
+#' used to fill any terms with \code{NA} weight. If \code{"mean"}, the
+#' mean term_weight should be used as the fill value
 #' @param fill_weight numeric value to fill in as weight for any term
 #' which does not have a weight specified in \code{term_weights}, 
 #' default=\code{1.0}
@@ -36,7 +39,8 @@
 #'   
 stylest_select_vocab <- function(x, speaker, filter = NULL, smooth = 0.5, nfold = 5,
                              cutoff_pcts = c(50, 60, 70, 80, 90, 99),
-                             cutoffs_term_weights=NULL, fill_weight=1.0, 
+                             cutoffs_term_weights=NULL, fill_method="value", 
+                             fill_weight=1.0, 
                              weight_varname="mean_distance") {
 
   if (as.integer(nfold) != nfold) {
@@ -86,17 +90,15 @@ stylest_select_vocab <- function(x, speaker, filter = NULL, smooth = 0.5, nfold 
       message("Cutoff: ", as.character(cutoff_pct))
       if (!is.null(cutoffs_term_weights)) {
         term_weights <- cutoffs_term_weights[[as.character(cutoff_pct)]]
-        message("Using term weights df with dimension:")
-        message(nrow(term_weights))
       }
       else {
         term_weights <- NULL
-        message("No term weights found")
       }
       
       # fit model on training data 
       fit <- stylest_fit(train, speaker[train_set], terms, smooth = smooth, 
                          term_weights = term_weights, 
+                         fill_method = fill_method,
                          fill_weight = fill_weight,
                          weight_varname = weight_varname) 
       # predict speaker for test data

@@ -12,6 +12,7 @@ stylest_select_vocab(
   nfold = 5,
   cutoff_pcts = c(50, 60, 70, 80, 90, 99),
   cutoffs_term_weights = NULL,
+  fill_method = "value",
   fill_weight = 1,
   weight_varname = "mean_distance"
 )
@@ -36,6 +37,10 @@ where the names correspond to the \code{cutoff_pcts}. Each dataframe
 should have one column $word and a second column $weight_varname 
 containing the weight for the word.
 See the vignette for details.}
+
+\item{fill_method}{if \code{"value"} (default), \code{fill_weight} is
+used to fill any terms with \code{NA} weight. If \code{"mean"}, the
+mean term_weight should be used as the fill value}
 
 \item{fill_weight}{numeric value to fill in as weight for any term
 which does not have a weight specified in \code{term_weights}, 
