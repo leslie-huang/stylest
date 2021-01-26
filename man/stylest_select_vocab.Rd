@@ -11,7 +11,7 @@ stylest_select_vocab(
   smooth = 0.5,
   nfold = 5,
   cutoff_pcts = c(50, 60, 70, 80, 90, 99),
-  term_weights = NULL,
+  cutoffs_term_weights = NULL,
   fill_weight = 1,
   weight_varname = "mean_distance"
 )
@@ -31,16 +31,17 @@ stylest_select_vocab(
 \item{cutoff_pcts}{Vector of cutoff percentages to test. Defaults to
 \code{c(50, 60, 70, 80, 90, 99)}}
 
-\item{term_weights}{Dataframe of distances (or any weights) per 
-word in the vocab. This dataframe should have one column $word and 
-a second column $weight_var containing the weight for the word.
+\item{cutoffs_term_weights}{Named list of dataframes of term weights,
+where the names correspond to the \code{cutoff_pcts}. Each dataframe 
+should have one column $word and a second column $weight_varname 
+containing the weight for the word.
 See the vignette for details.}
 
 \item{fill_weight}{numeric value to fill in as weight for any term
 which does not have a weight specified in \code{term_weights}, 
 default=\code{1.0}}
 
-\item{weight_varname}{Name of the column in term_weights containing 
+\item{weight_varname}{Name of the column in each term_weights dataframe containing 
 the weights, default=\code{"mean_distance"}}
 }
 \value{

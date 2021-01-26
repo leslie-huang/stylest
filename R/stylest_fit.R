@@ -107,23 +107,13 @@ fit_term_usage <- function(x, speaker, terms, smooth, term_weights, weight_varna
 
     if (is.null(term_weights)) {
       weights <- NULL
-    }
-    else {
+    } else {
       # construct vector of multipliers for words in same order as rate
-      weights <- c()
-      for (word in colnames(rate)) {
-        if (word %in% term_weights$word) {
-          weights <- c(weights, 
-                       term_weights[term_weights$word == word, 
-                                           weight_varname])
-        }
-        else {
-          weights <- c(weights, fill_weight)
-        }
-      }
+      rownames(term_weights) <- term_weights$word
+      weights <- term_weights[colnames(rate), weight_varname]
+      weights[is.na(weights)] <- fill_weight
       names(weights) <- colnames(rate)
     }
-    
     
     list(terms = terms, ntoken = ntok, smooth = smooth, weights = weights, rate = rate)
 }
