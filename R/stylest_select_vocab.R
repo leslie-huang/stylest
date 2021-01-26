@@ -13,6 +13,19 @@
 #' @param nfold Number of folds for cross-validation. Defaults to 5
 #' @param cutoff_pcts Vector of cutoff percentages to test. Defaults to
 #'   \code{c(50, 60, 70, 80, 90, 99)}
+#' @param cutoffs_term_weights Named list of dataframes of term weights,
+#' where the names correspond to the \code{cutoff_pcts}. Each dataframe 
+#' should have one column $word and a second column $weight_varname 
+#' containing the weight for the word.
+#' See the vignette for details.
+#' @param fill_method if \code{"value"} (default), \code{fill_weight} is
+#' used to fill any terms with \code{NA} weight. If \code{"mean"}, the
+#' mean term_weight should be used as the fill value
+#' @param fill_weight numeric value to fill in as weight for any term
+#' which does not have a weight specified in \code{term_weights}, 
+#' default=\code{1.0}
+#' @param weight_varname Name of the column in each term_weights dataframe containing 
+#' the weights, default=\code{"mean_distance"}
 #' @return List of: best cutoff percent with the best speaker classification
 #'   rate; cutoff percentages that were tested; matrix of the mean percentage of
 #'   incorrectly identified speakers for each cutoff percent and fold; and the
@@ -25,7 +38,10 @@
 #' }
 #'   
 stylest_select_vocab <- function(x, speaker, filter = NULL, smooth = 0.5, nfold = 5,
-                             cutoff_pcts = c(50, 60, 70, 80, 90, 99)) {
+                             cutoff_pcts = c(50, 60, 70, 80, 90, 99),
+                             cutoffs_term_weights=NULL, fill_method="value", 
+                             fill_weight=1.0, 
+                             weight_varname="mean_distance") {
 
   if (as.integer(nfold) != nfold) {
     stop("nfold must be an integer value")
@@ -66,12 +82,25 @@ stylest_select_vocab <- function(x, speaker, filter = NULL, smooth = 0.5, nfold 
     
     for (i in seq_along(cutoff_pcts)) {
       # select subset of vocab above cutoff percent
+      
       cutoff_pct <- cutoff_pcts[[i]]
       cutoff <- cutoff_pct / 100
       terms <- subset(speech_stats, speech_stats$support >= quantile(speech_stats$support, cutoff))$term
       
+      message("Cutoff: ", as.character(cutoff_pct))
+      if (!is.null(cutoffs_term_weights)) {
+        term_weights <- cutoffs_term_weights[[as.character(cutoff_pct)]]
+      }
+      else {
+        term_weights <- NULL
+      }
+      
       # fit model on training data 
-      fit <- stylest_fit(train, speaker[train_set], terms, smooth = smooth) 
+      fit <- stylest_fit(train, speaker[train_set], terms, smooth = smooth, 
+                         term_weights = term_weights, 
+                         fill_method = fill_method,
+                         fill_weight = fill_weight,
+                         weight_varname = weight_varname) 
       # predict speaker for test data
       pred <- stylest_predict(fit, test) 
       # mean num incorrectly predicted speakers on test data per fold

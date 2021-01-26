@@ -39,6 +39,25 @@ for examples and usage.
 
 <a href="https://github.com/ArthurSpirling/">Arthur Spirling</a>
 
+## Citation
+
+If you use this software, please cite:
+
+__Huang, L., Perry, P., & Spirling, A. (2020). A General Model of Author “Style” with Application to the UK House of Commons, 1935–2018. Political Analysis, 28(3), 412-434. doi:10.1017/pan.2019.49__
+
+```
+@article{huang2020general,
+  title={A General Model of Author “Style” with Application to the UK House of Commons, 1935--2018},
+  author={Huang, Leslie and Perry, Patrick O and Spirling, Arthur},
+  journal={Political Analysis},
+  volume={28},
+  number={3},
+  pages={412--434},
+  year={2020},
+  publisher={Cambridge University Press}
+}
+```
+
 ## Bug reports
 
 Please submit any bugs, error reports, etc. on

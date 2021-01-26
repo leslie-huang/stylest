@@ -10,8 +10,9 @@ fit_term_usage(
   terms,
   smooth,
   term_weights,
-  weight_varname,
-  fill_weight
+  fill_method,
+  fill_weight,
+  weight_varname
 )
 }
 \arguments{
@@ -24,18 +25,25 @@ fit_term_usage(
 
 \item{smooth}{Numeric value used smooth term frequencies}
 
-\item{term_weights}{Dataframe of distances (or any weights) per 
-word in the vocab. This dataframe should have one column $word and 
+\item{term_weights}{Dataframe of distances (or any weights) per
+word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word}
 
-\item{weight_varname}{Name of the column in term_weights containing the weights}
+\item{fill_method}{if \code{"value"} (default), \code{fill_weight} is
+used to fill any terms with \code{NA} weight. If \code{"mean"}, the
+mean term_weight should be used as the fill value}
 
 \item{fill_weight}{numeric value to fill in as weight for any term
 which does not have a weight specified in \code{term_weights}}
+
+\item{weight_varname}{Name of the column in term_weights containing the weights}
 }
 \value{
-named list of terms, vector of num tokens uttered by each speaker,
-  smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix
+named list of: terms, vector of num tokens uttered by each speaker,
+  smoothing value, term weights (NULL if no weights), terms whose 
+  weights were imputed (NULL if no \code{term_weights=NULL}), fill_weight 
+  used to fill missing weights (NULL if no \code{term_weights=NULL}),
+  and (smoothed) term usage rate matrix
 }
 \description{
 Computes speakers' term usage rates

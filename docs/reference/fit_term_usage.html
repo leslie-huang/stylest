@@ -135,8 +135,9 @@
   <span class='no'>terms</span>,
   <span class='no'>smooth</span>,
   <span class='no'>term_weights</span>,
-  <span class='no'>weight_varname</span>,
-  <span class='no'>fill_weight</span>
+  <span class='no'>fill_method</span>,
+  <span class='no'>fill_weight</span>,
+  <span class='no'>weight_varname</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -161,25 +162,34 @@
     </tr>
     <tr>
       <th>term_weights</th>
-      <td><p>Dataframe of distances (or any weights) per 
-word in the vocab. This dataframe should have one column $word and 
+      <td><p>Dataframe of distances (or any weights) per
+word in the vocab. This dataframe should have one column $word and
 a second column $weight_var containing the weight for the word</p></td>
     </tr>
     <tr>
-      <th>weight_varname</th>
-      <td><p>Name of the column in term_weights containing the weights</p></td>
+      <th>fill_method</th>
+      <td><p>if <code>"value"</code> (default), <code>fill_weight</code> is
+used to fill any terms with <code>NA</code> weight. If <code>"mean"</code>, the
+mean term_weight should be used as the fill value</p></td>
     </tr>
     <tr>
       <th>fill_weight</th>
       <td><p>numeric value to fill in as weight for any term
 which does not have a weight specified in <code>term_weights</code></p></td>
     </tr>
+    <tr>
+      <th>weight_varname</th>
+      <td><p>Name of the column in term_weights containing the weights</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>named list of terms, vector of num tokens uttered by each speaker,
-  smoothing value, term weights (NULL if no weights), and (smoothed) term usage rate matrix</p>
+    <p>named list of: terms, vector of num tokens uttered by each speaker,
+  smoothing value, term weights (NULL if no weights), terms whose 
+  weights were imputed (NULL if no <code>term_weights=NULL</code>), fill_weight 
+  used to fill missing weights (NULL if no <code>term_weights=NULL</code>),
+  and (smoothed) term usage rate matrix</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

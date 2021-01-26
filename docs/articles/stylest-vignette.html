@@ -85,7 +85,7 @@
       <h1>stylest vignette</h1>
                         <h4 class="author">Leslie Huang</h4>
             
-            <h4 class="date">2021-01-11</h4>
+            <h4 class="date">2021-01-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.Rmd"><code>vignettes/stylest-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>stylest-vignette.Rmd</code></div>
@@ -204,13 +204,73 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>Setting the seed before this step, to ensure reproducible runs, is recommended:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1234</span>)</span></code></pre></div>
 <p>Below are examples of <code>stylest_select_vocab</code> using the defaults and with custom parameters:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vocab_with_defaults &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vocab_with_defaults &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Cutoff: 60</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; Cutoff: 70</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; Cutoff: 80</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Cutoff: 90</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; Cutoff: 60</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; Cutoff: 70</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; Cutoff: 80</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Cutoff: 90</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; Cutoff: 60</span></span>
+<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; Cutoff: 70</span></span>
+<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; Cutoff: 80</span></span>
+<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; Cutoff: 90</span></span>
+<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; Cutoff: 60</span></span>
+<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; Cutoff: 70</span></span>
+<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Cutoff: 80</span></span>
+<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Cutoff: 90</span></span>
+<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; Cutoff: 60</span></span>
+<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; Cutoff: 70</span></span>
+<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; Cutoff: 80</span></span>
+<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; Cutoff: 90</span></span>
+<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; Cutoff: 99</span></span></code></pre></div>
 <p>Tokenization selections can optionally be passed as the <code>filter</code> argument; see the <code>corpus</code> package for more information about <code>text_filter</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>filter &lt;-<span class="st"> </span>corpus<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/corpus/man/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>, <span class="dt">drop_number =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>vocab_custom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, </span>
 <span id="cb8-4"><a href="#cb8-4"></a>                                     <span class="dt">filter =</span> filter, <span class="dt">smooth =</span> <span class="dv">1</span>, <span class="dt">nfold =</span> <span class="dv">10</span>, </span>
-<span id="cb8-5"><a href="#cb8-5"></a>                                     <span class="dt">cutoff_pcts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">99</span>))</span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>                                     <span class="dt">cutoff_pcts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">99</span>))</span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-30"><a href="#cb8-30"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-31"><a href="#cb8-31"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-32"><a href="#cb8-32"></a><span class="co">#&gt; Cutoff: 99</span></span>
+<span id="cb8-33"><a href="#cb8-33"></a><span class="co">#&gt; Cutoff: 50</span></span>
+<span id="cb8-34"><a href="#cb8-34"></a><span class="co">#&gt; Cutoff: 75</span></span>
+<span id="cb8-35"><a href="#cb8-35"></a><span class="co">#&gt; Cutoff: 99</span></span></code></pre></div>
 <p>Let’s look inside the <code>vocab_with_defaults</code> object.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Percentile with best prediction rate</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>vocab_with_defaults<span class="op">$</span>cutoff_pct_best</span>
@@ -288,10 +348,10 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <span id="cb15-3"><a href="#cb15-3"></a><span class="co">#&gt; [1] "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. \"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer. \"Do you not want to know who has taken it?\" cried his wife impatiently. \"_You_ want to tell me, and I have no objection to hearing it.\" This was invitation enough."</span></span>
 <span id="cb15-4"><a href="#cb15-4"></a></span>
 <span id="cb15-5"><a href="#cb15-5"></a>odds<span class="op">$</span>log_odds_avg[<span class="dv">14</span>]</span>
-<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; [1] 0.1629508</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">#&gt; [1] -0.001925658</span></span>
 <span id="cb15-7"><a href="#cb15-7"></a></span>
 <span id="cb15-8"><a href="#cb15-8"></a>odds<span class="op">$</span>log_odds_se[<span class="dv">14</span>]</span>
-<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; [1] 0.08624106</span></span></code></pre></div>
+<span id="cb15-9"><a href="#cb15-9"></a><span class="co">#&gt; [1] 0.001015172</span></span></code></pre></div>
 </div>
 <div id="predicting-the-speaker-of-a-new-text" class="section level3">
 <h3 class="hasAnchor">
@@ -310,13 +370,13 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <span id="cb16-10"><a href="#cb16-10"></a>pred &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_predict.html">stylest_predict</a></span>(mod, na_text)</span></code></pre></div>
 <p>Viewing the result, and recovering the log probabilities calculated for each speaker, is simple:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>pred<span class="op">$</span>predicted</span>
-<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; [1] Austen, Jane</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co">#&gt; [1] Eliot, George</span></span>
 <span id="cb17-3"><a href="#cb17-3"></a><span class="co">#&gt; Levels: Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></span>
 <span id="cb17-4"><a href="#cb17-4"></a></span>
 <span id="cb17-5"><a href="#cb17-5"></a>pred<span class="op">$</span>log_probs</span>
 <span id="cb17-6"><a href="#cb17-6"></a><span class="co">#&gt; 1 x 3 Matrix of class "dgeMatrix"</span></span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt;       Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></span>
-<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; [1,] -3.552827e-05     -37.08795                    -10.2452</span></span></code></pre></div>
+<span id="cb17-7"><a href="#cb17-7"></a><span class="co">#&gt;      Austen, Jane Eliot, George Gaskell, Elizabeth Cleghorn</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a><span class="co">#&gt; [1,]    -1.111991      -1.02821                   -1.160115</span></span></code></pre></div>
 </div>
 <div id="influential-terms" class="section level3">
 <h3 class="hasAnchor">
@@ -349,10 +409,52 @@ infl_max
 the
 </td>
 <td style="text-align:right;">
-3.1516807
+0.3151681
 </td>
 <td style="text-align:right;">
-5.978128
+0.5978128
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+a
+</td>
+<td style="text-align:right;">
+0.0488151
+</td>
+<td style="text-align:right;">
+0.0864017
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+40
+</td>
+<td style="text-align:left;">
+an
+</td>
+<td style="text-align:right;">
+0.0484018
+</td>
+<td style="text-align:right;">
+0.1089041
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+and
+</td>
+<td style="text-align:right;">
+0.0125561
+</td>
+<td style="text-align:right;">
+0.0196711
 </td>
 </tr>
 <tr>
@@ -363,66 +465,24 @@ the
 of
 </td>
 <td style="text-align:right;">
-1.2827110
+0.0000000
 </td>
 <td style="text-align:right;">
-1.643542
+0.0000000
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-10
+4
 </td>
 <td style="text-align:left;">
-i
+in
 </td>
 <td style="text-align:right;">
-1.0793536
+0.0000000
 </td>
 <td style="text-align:right;">
-2.371517
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-16
-</td>
-<td style="text-align:left;">
-was
-</td>
-<td style="text-align:right;">
-0.9463016
-</td>
-<td style="text-align:right;">
-2.469169
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-36
-</td>
-<td style="text-align:left;">
-her
-</td>
-<td style="text-align:right;">
-0.8258614
-</td>
-<td style="text-align:right;">
-2.300864
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-15
-</td>
-<td style="text-align:left;">
-on
-</td>
-<td style="text-align:right;">
-0.8044003
-</td>
-<td style="text-align:right;">
-1.874483
+0.0000000
 </td>
 </tr>
 </tbody>
@@ -445,86 +505,86 @@ infl_max
 <tbody>
 <tr>
 <td style="text-align:left;">
-125
+141
 </td>
 <td style="text-align:left;">
-first
+time
 </td>
 <td style="text-align:right;">
-0.0347210
+0
 </td>
 <td style="text-align:right;">
-0.0682297
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-139
+142
 </td>
 <td style="text-align:left;">
-tell
+two
 </td>
 <td style="text-align:right;">
-0.0347210
+0
 </td>
 <td style="text-align:right;">
-0.0682297
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-94
+143
 </td>
 <td style="text-align:left;">
-know
+under
 </td>
 <td style="text-align:right;">
-0.0244041
+0
 </td>
 <td style="text-align:right;">
-0.0349626
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-97
+144
 </td>
 <td style="text-align:left;">
-much
+whom
 </td>
 <td style="text-align:right;">
-0.0244041
+0
 </td>
 <td style="text-align:right;">
-0.0349626
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-99
+145
 </td>
 <td style="text-align:left;">
-three
+without
 </td>
 <td style="text-align:right;">
-0.0244041
+0
 </td>
 <td style="text-align:right;">
-0.0349626
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-33
+146
 </td>
 <td style="text-align:left;">
-from
+world
 </td>
 <td style="text-align:right;">
-0.0062509
+0
 </td>
 <td style="text-align:right;">
-0.0094170
+0
 </td>
 </tr>
 </tbody>

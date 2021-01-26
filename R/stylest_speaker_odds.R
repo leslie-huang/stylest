@@ -46,6 +46,16 @@ stylest_odds <- function(model, text, speaker, prior = NULL)
     # the speakers; don't worry about the normalizing constant since
     # it is the same for all speakers
     eta <- log(model$rate)
+    
+    # multiply by term weights if they exist
+    if (!is.null(model$weights)) {
+      # make sure weights are in the same order for matrix multiplication
+      sorted_weights <- model$weights[colnames(eta)]
+      for (i in 1:nrow(eta)) {
+        eta[i, ] <- eta[i, ] * sorted_weights
+      }
+    }
+    
     loglik <- x %*% t(eta) - ntok %*% t(Matrix::rowSums(model$rate))
     rownames(loglik) <- rownames(x)
 

@@ -22,11 +22,11 @@
 stylest_predict <- function(model, text, prior = NULL)
 {
     stopifnot(inherits(model, "stylest_model"))
-
+    
     nspeaker <- length(model$speakers)
-
+    
     text <- corpus::as_corpus_text(text, model$filter)
-
+    
     # use an equal prior if left unspecified
     if (is.null(prior)) {
         log_prior <- rep(-log(nspeaker), nspeaker) # log(1/nspeaker)
@@ -34,34 +34,44 @@ stylest_predict <- function(model, text, prior = NULL)
         log_prior <- log(prior)
     }
     names(log_prior) <- model$speakers
-
+    
     terms <- model$terms
     x <- corpus::term_matrix(text, select = model$terms)
     ntok <- rowSums(x)
-
+    
     # for each speech, evaluate the Poisson log-likelihoods for
     # the speakers; don't worry about the normalizing constant since
     # it is the same for all speakers
     eta <- log(model$rate)
+    
+    # multiply by term weights if they exist
+    if (!is.null(model$weights)) {
+        # make sure weights are in the same order for matrix multiplication
+        sorted_weights <- model$weights[colnames(eta)]
+        for (i in 1:nrow(eta)) {
+            eta[i, ] <- eta[i, ] * sorted_weights
+        }
+    }
+    
     loglik <- x %*% t(eta) - ntok %*% t(rowSums(model$rate))
     rownames(loglik) <- rownames(x)
-
+    
     # for each speech, compute the posterior probabilities for the speakers
     log_weights <- loglik
     if (!is.null(prior)) {
         log_weights <- sweep(log_weights, 2, log_prior, "+")
     }
-
+    
     # guard against overflow
     log_weights <- log_weights - apply(log_weights, 1, max)
-
+    
     const <- log(Matrix::rowSums(exp(log_weights)))
     log_probs <- log_weights - const
     rownames(log_probs) <- rownames(x)
-
+    
     predicted <- model$speakers[apply(log_probs, 1, which.max)]
     predicted <- factor(predicted, levels = model$speakers)
-
+    
     res <- list(model = model, predicted = predicted,
                 log_probs = log_probs, log_prior = log_prior)
     class(res) <- "stylest_predict"
