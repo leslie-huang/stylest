@@ -85,7 +85,7 @@
       <h1>stylest vignette</h1>
                         <h4 class="author">Leslie Huang</h4>
             
-            <h4 class="date">2021-01-26</h4>
+            <h4 class="date">2021-02-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.Rmd"><code>vignettes/stylest-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>stylest-vignette.Rmd</code></div>
@@ -204,73 +204,13 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <p>Setting the seed before this step, to ensure reproducible runs, is recommended:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="dv">1234</span>)</span></code></pre></div>
 <p>Below are examples of <code>stylest_select_vocab</code> using the defaults and with custom parameters:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vocab_with_defaults &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="co">#&gt; Cutoff: 60</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; Cutoff: 70</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt; Cutoff: 80</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt; Cutoff: 90</span></span>
-<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; Cutoff: 60</span></span>
-<span id="cb7-10"><a href="#cb7-10"></a><span class="co">#&gt; Cutoff: 70</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="co">#&gt; Cutoff: 80</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="co">#&gt; Cutoff: 90</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb7-14"><a href="#cb7-14"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co">#&gt; Cutoff: 60</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="co">#&gt; Cutoff: 70</span></span>
-<span id="cb7-17"><a href="#cb7-17"></a><span class="co">#&gt; Cutoff: 80</span></span>
-<span id="cb7-18"><a href="#cb7-18"></a><span class="co">#&gt; Cutoff: 90</span></span>
-<span id="cb7-19"><a href="#cb7-19"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb7-20"><a href="#cb7-20"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb7-21"><a href="#cb7-21"></a><span class="co">#&gt; Cutoff: 60</span></span>
-<span id="cb7-22"><a href="#cb7-22"></a><span class="co">#&gt; Cutoff: 70</span></span>
-<span id="cb7-23"><a href="#cb7-23"></a><span class="co">#&gt; Cutoff: 80</span></span>
-<span id="cb7-24"><a href="#cb7-24"></a><span class="co">#&gt; Cutoff: 90</span></span>
-<span id="cb7-25"><a href="#cb7-25"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb7-26"><a href="#cb7-26"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb7-27"><a href="#cb7-27"></a><span class="co">#&gt; Cutoff: 60</span></span>
-<span id="cb7-28"><a href="#cb7-28"></a><span class="co">#&gt; Cutoff: 70</span></span>
-<span id="cb7-29"><a href="#cb7-29"></a><span class="co">#&gt; Cutoff: 80</span></span>
-<span id="cb7-30"><a href="#cb7-30"></a><span class="co">#&gt; Cutoff: 90</span></span>
-<span id="cb7-31"><a href="#cb7-31"></a><span class="co">#&gt; Cutoff: 99</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>vocab_with_defaults &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author)</span></code></pre></div>
 <p>Tokenization selections can optionally be passed as the <code>filter</code> argument; see the <code>corpus</code> package for more information about <code>text_filter</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>filter &lt;-<span class="st"> </span>corpus<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/corpus/man/text_filter.html">text_filter</a></span>(<span class="dt">drop_punct =</span> <span class="ot">TRUE</span>, <span class="dt">drop_number =</span> <span class="ot">TRUE</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a></span>
 <span id="cb8-3"><a href="#cb8-3"></a>vocab_custom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/stylest_select_vocab.html">stylest_select_vocab</a></span>(novels_excerpts<span class="op">$</span>text, novels_excerpts<span class="op">$</span>author, </span>
 <span id="cb8-4"><a href="#cb8-4"></a>                                     <span class="dt">filter =</span> filter, <span class="dt">smooth =</span> <span class="dv">1</span>, <span class="dt">nfold =</span> <span class="dv">10</span>, </span>
-<span id="cb8-5"><a href="#cb8-5"></a>                                     <span class="dt">cutoff_pcts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">99</span>))</span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-9"><a href="#cb8-9"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-10"><a href="#cb8-10"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-12"><a href="#cb8-12"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-13"><a href="#cb8-13"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-14"><a href="#cb8-14"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-15"><a href="#cb8-15"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-16"><a href="#cb8-16"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-17"><a href="#cb8-17"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-18"><a href="#cb8-18"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-19"><a href="#cb8-19"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-20"><a href="#cb8-20"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-21"><a href="#cb8-21"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-22"><a href="#cb8-22"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-23"><a href="#cb8-23"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-24"><a href="#cb8-24"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-25"><a href="#cb8-25"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-26"><a href="#cb8-26"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-27"><a href="#cb8-27"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-28"><a href="#cb8-28"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-29"><a href="#cb8-29"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-30"><a href="#cb8-30"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-31"><a href="#cb8-31"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-32"><a href="#cb8-32"></a><span class="co">#&gt; Cutoff: 99</span></span>
-<span id="cb8-33"><a href="#cb8-33"></a><span class="co">#&gt; Cutoff: 50</span></span>
-<span id="cb8-34"><a href="#cb8-34"></a><span class="co">#&gt; Cutoff: 75</span></span>
-<span id="cb8-35"><a href="#cb8-35"></a><span class="co">#&gt; Cutoff: 99</span></span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5"></a>                                     <span class="dt">cutoff_pcts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">99</span>))</span></code></pre></div>
 <p>Let’s look inside the <code>vocab_with_defaults</code> object.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Percentile with best prediction rate</span></span>
 <span id="cb9-2"><a href="#cb9-2"></a>vocab_with_defaults<span class="op">$</span>cutoff_pct_best</span>
