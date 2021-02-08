@@ -87,7 +87,6 @@ stylest_select_vocab <- function(x, speaker, filter = NULL, smooth = 0.5, nfold 
       cutoff <- cutoff_pct / 100
       terms <- subset(speech_stats, speech_stats$support >= quantile(speech_stats$support, cutoff))$term
       
-      message("Cutoff: ", as.character(cutoff_pct))
       if (!is.null(cutoffs_term_weights)) {
         term_weights <- cutoffs_term_weights[[as.character(cutoff_pct)]]
       }
