@@ -43,7 +43,7 @@ for examples and usage.
 
 If you use this software, please cite:
 
-__Huang, L., Perry, P., & Spirling, A. (2020). A General Model of Author “Style” with Application to the UK House of Commons, 1935–2018. Political Analysis, 28(3), 412-434. doi:10.1017/pan.2019.49__
+Huang, L., Perry, P., & Spirling, A. (2020). A General Model of Author “Style” with Application to the UK House of Commons, 1935–2018. Political Analysis, 28(3), 412-434. <doi:10.1017/pan.2019.49>
 
 ```
 @article{huang2020general,
