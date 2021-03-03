@@ -1,32 +1,22 @@
-## Resubmission
+## Update
 
-This is a resubmission. In this version I have:
+This is a update. In this version I have:
 
-* Added a reference and DOI for the working paper in which the methods of this package were developed.
-* Removed GPL-3 License file.
+* Added a new feature for including word level weights in the stylest model.
+* Updated the DOI for the published article which introduced this method.
 
 
 ## Release summary
 
 ## Test environments
-* local OS X install, R 3.4.3
-* OS 10.12.6 (on travis-ci), R 3.5.0, R-oldrel, R-devel
-* ubuntu 14.04 (on travis-ci), R 3.5.0, R-oldrel, R-devel
-* windows server 2012 (on appveyor), R 3.5.0
+* local OS 10.14.6 install, R 3.6.2
+* OS 10.13.6 (on travis-ci), R 3.6.3, R 4.0.4
+* ubuntu 16.04 (on travis-ci), R 3.6.3, R 4.0.2
+* windows server 2012 R2 x64 (on appveyor), R 4.0.4
 
 ## R CMD check results
-There were no ERRORs or WARNINGs. There was 1 NOTE:
-
-* new submission from new maintainer
+There were no ERRORs, WARNINGs, or NOTEs.
 
 ## Reverse dependencies
 
 None.
-
-## Ignored build failures
-
-I am ignoring a build failure on OSX/R-devel. I believe that the error does not originate in my package yet I have been unable to resolve it with suggestions from similar issues on GitHub. The error is as follows:
-
- <!--
-The command "Rscript -e 'deps <- devtools::dev_package_deps(dependencies = NA);devtools::install_deps(dependencies = TRUE);if (!all(deps$package %in% installed.packages())) { message("missing: ", paste(setdiff(deps$package, installed.packages()), collapse=", ")); q(status = 1, save = "no")}'" failed and exited with 1 during .
---!>
