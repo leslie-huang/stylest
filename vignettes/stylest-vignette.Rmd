@@ -255,7 +255,7 @@ kable(tail(influential_terms[order(influential_terms$infl_avg, decreasing = TRUE
 
 If you use this software, please cite:
 
-Huang, L., Perry, P., & Spirling, A. (2020). A General Model of Author “Style” with Application to the UK House of Commons, 1935–2018. Political Analysis, 28(3), 412-434. <doi:10.1017/pan.2019.49>
+Huang, L., Perry, P., & Spirling, A. (2020). A General Model of Author “Style” with Application to the UK House of Commons, 1935–2018. Political Analysis, 28(3), 412-434. [https://doi.org/10.1017/pan.2019.49](https://doi.org/10.1017/pan.2019.49)
 
 ```
 @article{huang2020general,
