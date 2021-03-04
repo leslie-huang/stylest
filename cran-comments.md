@@ -1,9 +1,10 @@
 ## Update
 
-This is a update. In this version I have:
+This is a (resubmission of an) update. In this version I have:
 
 * Added a new feature for including word level weights in the stylest model.
 * Updated the DOI for the published article which introduced this method.
+* Fixed URL in README.
 
 
 ## Release summary

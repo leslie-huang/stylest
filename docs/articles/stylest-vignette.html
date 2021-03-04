@@ -85,7 +85,7 @@
       <h1>stylest vignette</h1>
                         <h4 class="author">Leslie Huang</h4>
             
-            <h4 class="date">2021-03-03</h4>
+            <h4 class="date">2021-03-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/leslie-huang/stylest/blob/master/vignettes/stylest-vignette.Rmd"><code>vignettes/stylest-vignette.Rmd</code></a></small>
       <div class="hidden name"><code>stylest-vignette.Rmd</code></div>
@@ -256,7 +256,7 @@ Emma Woodhouse, handsome, clever, and rich, with a comfortable home and happy di
 <h3 class="hasAnchor">
 <a href="#fitting-the-model-adding-custom-term-weights" class="anchor"></a>Fitting the model: adding custom term weights</h3>
 <p>A new feature is the option to specify custom term weights, in the form of a dataframe. The intended use case is the mean cosine distance from the embedding representation of the word to all other words in the vocabulary, but the weights can be anything desired by the user.</p>
-<p>An example <code>term_weights</code> is shown below. When this argument is passed to <code><a href="../reference/stylest_fit.html">stylest_fit()</a></code>, the weights for terms in the model vocabulary will be extracted. Any term not included in <code>term_weights</code> will be assigned a default weight of 1.</p>
+<p>An example <code>term_weights</code> is shown below. When this argument is passed to <code><a href="../reference/stylest_fit.html">stylest_fit()</a></code>, the weights for terms in the model vocabulary will be extracted. Any term not included in <code>term_weights</code> will be assigned a default weight of 0.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a></span>
 <span id="cb12-2"><a href="#cb12-2"></a>term_weights &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="st">"word"</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"the"</span>, <span class="st">"and"</span>, <span class="st">"Floccinaucinihilipilification"</span>),</span>
 <span id="cb12-3"><a href="#cb12-3"></a>                           <span class="st">"mean_distance"</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.1</span>,<span class="fl">0.2</span>,<span class="fl">0.001</span>))</span>

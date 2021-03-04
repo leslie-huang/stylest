@@ -13,3 +13,4 @@ cran-comments.md
 ^pkgdown$
 ^doc$
 ^Meta$
+^CRAN-RELEASE$

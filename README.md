@@ -33,9 +33,9 @@ for examples and usage.
 
 ## Authors
 
-<a href="http://leslie-huang.github.io">Leslie Huang (maintainer)</a>
+<a href="https://leslie-huang.github.io/">Leslie Huang (maintainer)</a>
 
-<a href="https://github.com/patperry">Patrick O. Perry</a>
+<a href="https://github.com/patperry/">Patrick O. Perry</a>
 
 <a href="https://github.com/ArthurSpirling/">Arthur Spirling</a>
 
